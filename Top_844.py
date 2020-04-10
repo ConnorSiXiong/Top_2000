@@ -9,9 +9,12 @@ def helper(S: str) -> []:
             result.append(item)
         else:
             if len(result) != 0:
+                # careful with empty list
+                # S: a##c
+                # T: #a#c
                 result.pop()
     return result
 
-S = "ab#c"
-T = "ad#c"
+S = "abc#d#"
+T = "abc#"
 print(backspaceCompare(S, T))
