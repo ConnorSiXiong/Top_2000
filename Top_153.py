@@ -41,6 +41,7 @@ def findMin3(nums: List[int]) -> int:
     while left < right:
 
         mid = (left + right) // 2
+        # mid = left + (right - left) // 2
         print('mid ', mid)
         if nums[mid] <= nums[right]:
             right = mid
