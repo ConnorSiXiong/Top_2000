@@ -51,6 +51,7 @@ amount = abs(5) % len(a)
 
 def stringShift2(s: str, shift: List[List[int]]) -> str:
     chars = collections.deque(s)
+    print('chars ', chars)
     for d, amount in shift:
         if d == 0:
             for _ in range(amount):
@@ -62,6 +63,12 @@ def stringShift2(s: str, shift: List[List[int]]) -> str:
                 chars.appendleft(num)
     return ''.join(chars)
 
+a = "abcde"
+shift = [[0,1],[0,1],[1,10],[1,3]]
+stringShift2(a, shift)
+
+for i in range(5):
+    print(i)
 
 def stringShift3(s: str, shift: List[List[int]]) -> str:
     left = 0
@@ -70,21 +77,16 @@ def stringShift3(s: str, shift: List[List[int]]) -> str:
             left -= a
         else:
             left += a
-    print(left)
     left %= len(s)  # 如何处理 负数整数的除法 的 余数
-    print(left)
-
     return s[left:] + s[:left]
 
-a = "abcde"
-shift = [[0,1],[0,1],[1,10],[1,3]]
 
 stringShift3(a, shift)
-print(a[2:])
-print(a[:2])
-
-print(-11%5)
-print(-11//5)
+# print(a[2:])
+# print(a[:2])
+#
+# print(-11%5)
+# print(-11//5)
 
 # -11 除以 5 = -3 ... 4
 # 余数必须是正数
