@@ -22,6 +22,9 @@ def search(nums: List[int], target: int) -> int:
 
         if mid_value > right_value:
             if left_value <= target < mid_value:
+                # 这里如果分析 mid的右边，有两种情况，比较绕；所以分析左边
+                # 第一种情况 4 5 6 8 1 2   target = 8
+                # 另一种情况 4 5 6 0 1 2   target = 1
                 right = mid - 1
             else:
                 left = mid + 1
@@ -37,7 +40,6 @@ a = [5, 6, 0, 1, 2, 3]
 t = 1
 
 b = [1]
-
 
 print(search(a, 3))
 
