@@ -11,7 +11,6 @@ def numSteps(s: str) -> int:
         zero_index = s.rfind('0')
 
         if zero_index == -1:
-
             s = '1' + '0' * len(s)
             return 1 + numSteps(s)
         else:
