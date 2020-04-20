@@ -4,7 +4,7 @@ from typing import List
 def findMin(nums: List[int]) -> int:
 
     for i in range(1, len(nums)):
-        if nums[i] < nums [i - 1]:
+        if nums[i] < nums[i - 1]:
             return nums[i]
     return nums[0]
 
@@ -52,3 +52,29 @@ def findMin3(nums: List[int]) -> int:
         # else:
         #     right = mid
     return nums[left]
+
+
+def findMin4(nums: List[int]) -> int:
+    #        [6, 7, 0, 1, 2, 3, 4]
+    # index   0  1  2  3  4  5  6
+    left = 0
+    right = len(nums) - 1
+
+    while left < right:
+
+        mid = (left + right) // 2
+        # mid = left + (right - left) // 2
+        print('mid ', mid)
+        if nums[mid] < nums[right]:
+            right = mid - 1
+        else:
+            left = mid + 1
+        # if nums[mid] > nums[right]:
+        #     left = mid + 1
+        # else:
+        #     right = mid
+    return nums[left]
+
+a = [4,5,6,7,0,1,2]
+b = [6,7,0,1,2,3,4]
+print(findMin4(b))
