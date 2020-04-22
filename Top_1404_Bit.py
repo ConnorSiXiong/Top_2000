@@ -15,7 +15,7 @@ def numSteps(s: str) -> int:
             return 1 + numSteps(s)
         else:
             # 11011 -> 1110
-            # 这个地方我操作了两次，最后 +2
+            # 这个地方我操作了两次，所以 +2
             s = s[0: zero_index] + '1' + '0' * (len(s) - zero_index - 2)
             return 2 + numSteps(s)
 
