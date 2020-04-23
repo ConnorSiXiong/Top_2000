@@ -65,6 +65,28 @@ def subarraySum2(nums: List[int], k: int) -> int:
     #  1, 2,  0
     count = 0
     box = {0: 1}
+    # 上面放一个{0: 1}，是为了判断第一个数用的
+    # 在第一个位置的 temp_sum = nums[0]，也就是第一个数
+    # 如果temp_sum - k == 0, 那么正好就可以访问刚才放进去的{0: 1}
+    # 差值为0，有1个
+    # 就能得到count += 1
+    """
+    {0: 1}
+    {1: 1}
+    {5: 1}
+    {6: 1}
+    {10: 1}
+    {15: 1}
+    
+    1, 4, 1, 4, 5
+    target = 5
+        
+    each = 5
+    sum = 15
+    
+    count = 0 + 1 + 1 + 1 + 1
+    
+    """
     temp_sum = 0
     for each in nums:
         temp_sum += each
