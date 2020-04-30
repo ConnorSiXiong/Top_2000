@@ -28,7 +28,6 @@ def canJump2(nums: List[int]) -> bool:
     print('dp =', dp)
     return dp[-1]
 
-
 a = [2, 3, 1, 1, 4]
 
 b = [3, 2, 1, 0, 4]
