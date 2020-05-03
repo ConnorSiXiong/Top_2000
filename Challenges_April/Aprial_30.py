@@ -21,3 +21,6 @@ class Solution:
             return dfs(root.left, index + 1) or dfs(root.right, index + 1)
 
         return dfs(root, 0)
+
+
+# https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/532/week-5/3315/
