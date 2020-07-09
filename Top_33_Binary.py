@@ -44,5 +44,14 @@ b = [1]
 print(search(a, 3))
 
 
+# nums = [4,5,6,7,0,1,2], target = 0
+# nums = [4,5,6,7,0,1,2], target = 3
+
 def search2(nums: List[int], target: int) -> int:
-    pass
+    """
+    2020.07.09, 14:06
+    再做一遍
+    看了半天, 没做出来
+    """
+
+    return -1
