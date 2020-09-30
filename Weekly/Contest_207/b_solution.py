@@ -47,6 +47,13 @@ def maxUniqueSplit2(s: str) -> int:
 
     return res
 
+def maxUniqueSplit2(s: str) -> int:
+    res = 0
+
+
+
+
+
 
 s = 'abc'
 
