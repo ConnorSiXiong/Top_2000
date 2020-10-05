@@ -2,14 +2,13 @@ from typing import List
 
 
 def specialArray(nums: List[int]) -> int:
-    for i in range(1001):
-        res = 0
-        for x in nums:
-            if x >= i:
-                res += 1
-        if res == i:
-            return res
-
+    for candidate in range(101):
+        count = 0
+        for i in nums:
+            if i >= candidate:
+                count += 1
+        if count == candidate:
+            return count
     return -1
 
 
@@ -20,4 +19,4 @@ a4 = [3, 6, 7, 7, 0]
 a5 = [1, 1, 5, 5]
 a6 = [3, 3, 3]
 a7 = [0, 0, 0, 1]
-print(specialArray(a7))
+print(specialArray(a2))
