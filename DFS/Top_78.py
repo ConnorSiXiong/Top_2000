@@ -35,13 +35,26 @@ def subsets(nums: List[int]) -> List[List[int]]:
             if nums[i] in cur_arr:
                 continue
             cur_arr.append(nums[i])
+            print('cur_arr', cur_arr)
             dfs(start + 1, cur_arr)
             cur_arr.pop()
+            """
+            假设 nums = [1,2]
+            
+            
+            说一下这个pop是怎么用的
+            
+            当i = 0 时，cur_arr放进去了一个1
+            然后就进入dfs了
+            然后这个cur_arr刚刚放进去的1要拿出来，因为下一轮给2用，这样cur_arr就只有一个2了
+            
+            
+            """
 
     dfs(0, [])
 
     return result
 
 
-
+nums = [1,2,3]
 print(subsets(nums))
