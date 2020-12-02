@@ -20,8 +20,7 @@ def decodeString(s: str) -> str:
         else:
             cur_str += cur
 
-
-    return ''
+    return cur_str
 
 
 s1 = "3[a]2[bc]"
@@ -35,3 +34,8 @@ a3 = "abcabccdcdcdef"
 
 s4 = "abc3[cd]xyz"
 a4 = "abccdcdcdxyz"
+
+assert decodeString(s1) == a1
+assert decodeString(s2) == a2
+assert decodeString(s3) == a3
+assert decodeString(s4) == a4
