@@ -88,9 +88,10 @@ def search(arr, target):
 def find_min_index(arr):
     start = 0
     end = len(arr) - 1
+
     while start + 1 < end:
         mid = (start + end) // 2
-        if arr[start] < arr[mid]:
+        if arr[mid] < nums[end]:
             end = mid
         else:
             start = mid
@@ -112,10 +113,11 @@ def find_target(arr, target, start, end):
     return -1
 
 
-nums = [4, 5, 1, 2, 3]
-t = 1
-
-print(search(nums, t))
+nums = [1,1,1,0]
+print(find_min_index(nums))
+# t = 1
+#
+# print(search(nums, t))
 
 # -------------------
 # ----- 方法 2 -------
