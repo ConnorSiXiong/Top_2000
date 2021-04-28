@@ -35,6 +35,27 @@ def levelOrder(root: TreeNode) -> List[List[int]]:
     return res
 
 
+
+def levelOrder2(root: TreeNode) -> List[List[int]]:
+    # ----- 这个写掉了 ------
+    if not root:
+        return []
+    # ----- 这个写掉了 ------
+
+    queue = collections.deque([root])
+    res = []
+
+    while queue:
+        next_queue = collections.deque([])
+        res.append([i.val for i in queue])
+        for node in queue:
+            if node.left:
+                next_queue.append(node.left)
+            if node.right:
+                next_queue.append(node.right)
+        queue = next_queue
+    return res
+
 l1 = TreeNode(1)
 l2_l = TreeNode(2)
 l2_r = TreeNode(3)
@@ -56,3 +77,4 @@ l3_rr.left = l4_rrl
 l3_rr.right = l4_rrr
 
 print(levelOrder(l1) == [[1], [2, 3], [4, 5, 6], [7, 8]])
+print(levelOrder2(l1) == [[1], [2, 3], [4, 5, 6], [7, 8]])
