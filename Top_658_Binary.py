@@ -1,6 +1,5 @@
 from typing import List
 
-
 #
 # class Solution:
 #     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
@@ -75,13 +74,107 @@ from typing import List
 #             return True
 #         return False
 #
+
+#
+# class Solution:
+#     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+#         res = []
+#         right = self.findTargetIndex(arr, x)
+#         left = right - 1
+#         print('right', right)
+#         print('left', left)
+#         for i in range(k):
+#             if self.isLeftCloser(arr, left, right, x):
+#                 res.append(arr[left])
+#                 left -= 1
+#             else:
+#                 res.append(arr[right])
+#                 right += 1
+#         return res
+#
+#     def findTargetIndex(self, arr, target):
+# """
+#         find the first element in arr >= target
+#
+#         xxxxxxoooooo
+#
+#         namely, the first 'o'
+#         """
+#         # find index of x >= target
+#
+#         # 0, 1, 2, 3 , 4 , 5
+#         #       x
+#
+#         # 1, 1, 1, 10, 10, 10
+#         #
+#
+#         left = 0
+#         right = len(arr) - 1
+#         while left + 1 < right:
+#             mid = (left + right) // 2
+#
+#             # ---------  想错了，基础错误  ---------
+#             # if arr[mid] >= target:
+#             #     left = mid
+#             # else:
+#             #     right = mid
+#             # ---------  想错了，基础错误  ---------
+#
+#             if arr[mid] >= target:
+#                 # arr[mid]已经大于等于target
+#                 # 那么target只可能出现在左半部分
+#                 # 等于情况就是正好arr[mid] = target
+#
+#                 # 剩下的从 arr[mid] > target 来看
+#                 # mid 已经大于 target 了，不可能跑到右边更大的部分去找
+#                 # 所以只可能在左边
+#
+#                 # 其实也可以分开写，不容易出错
+#                 # 思维上面就是单独去想一想怎么处理 = 的情况
+#
+#                 right = mid
+#             else:
+#                 left = mid
+#         if arr[left] >= target:
+#             return left
+#         if arr[right] >= target:
+#             return right
+#
+#         return len(arr)
+#
+#     def isLeftCloser(self, arr, left, right, target):
+#         # 先判断边界
+#         if right >= len(arr):
+#             return True
+#         if left < 0:
+#             return False
+#
+#         if target - arr[left] <= arr[right] - target:
+#             return True
+#         return False
+
+"""
+    2021.05.04
+    22:43 - 23:35
+    
+    找到k个与x最相近的
+    
+"""
+
+
 class Solution:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        if not arr:
+            return []
+        if k == 0:
+            return []
+
         res = []
-        right = self.findTargetIndex(arr, x)
+        # 理解:
+        # 是为了找 oooooxxxxx的第一个x
+        # 所以这个地方一定是right开始
+        right = self.findXIndex(arr, x)
         left = right - 1
-        print('right', right)
-        print('left', left)
         for i in range(k):
             if self.isLeftCloser(arr, left, right, x):
                 res.append(arr[left])
@@ -89,59 +182,40 @@ class Solution:
             else:
                 res.append(arr[right])
                 right += 1
-        return res
 
-    def findTargetIndex(self, arr, target):
-        # find index of x >= target
+        return arr[left + 1:right]
+        # 这个 left + 1 是因为在上面的 left -= 1是为next step的，所以要往回走一步
+        # right在数组切片操作里正好不算当前的值，所以就不用往回算一步了
 
-        # 0, 1, 2, 3 , 4 , 5
-        #       x
-
-        # 1, 1, 1, 10, 10, 10
-        #
-
+    def findXIndex(self, arr, x):
         left = 0
         right = len(arr) - 1
+
         while left + 1 < right:
             mid = (left + right) // 2
-
-            # ---------  想错了，基础错误  ---------
-            # if arr[mid] >= target:
-            #     left = mid
-            # else:
-            #     right = mid
-            # ---------  想错了，基础错误  ---------
-
-            if arr[mid] >= target:
-                # arr[mid]已经大于等于target
-                # 那么target只可能出现在左半部分
-                # 等于情况就是正好arr[mid] = target
-
-                # 剩下的从 arr[mid] > target 来看
-                # mid 已经大于 target 了，不可能跑到右边更大的部分去找
-                # 所以只可能在左边
-
-                # 其实也可以分开写，不容易出错
-                # 思维上面就是单独去想一想怎么处理 = 的情况
-
-                right = mid
-            else:
+            if x > arr[mid]:
                 left = mid
-        if arr[left] >= target:
+            else:
+                right = mid
+        # 理解:
+        # 是为了找 oooooxxxxx的第一个x
+        if arr[left] >= x:
             return left
-        if arr[right] >= target:
+        if arr[right] >= x:
             return right
-
         return len(arr)
 
-    def isLeftCloser(self, arr, left, right, target):
-        # 先判断边界
-        if right >= len(arr):
-            return True
+    def isLeftCloser(self, arr, left, right, x):
         if left < 0:
             return False
+        # 这里的判断边界一定是 >=
+        # 一开始写成了 right > len(arr)
+        # 这个肯定是不对的
+        # 因为right == len(arr) 就已经越界了
+        if right >= len(arr):
+            return True
 
-        if target - arr[left] <= arr[right] - target:
+        if abs(arr[left] - x) <= abs(arr[right] - x):
             return True
         return False
 
@@ -149,4 +223,6 @@ class Solution:
 a = Solution()
 arr = [-2, -1, 1, 2, 3, 4, 5]
 arr1 = [1, 1, 1, 10, 10, 10]
+arr2 = [-2, -1, 1, 2, 3, 4, 5]
+
 print(a.findClosestElements(arr1, 3, 3))
