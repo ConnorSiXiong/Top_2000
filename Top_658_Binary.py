@@ -153,76 +153,139 @@ from typing import List
 #             return True
 #         return False
 
+# """
+#     2021.05.04
+#     22:43 - 23:35
+#
+#     找到k个与x最相近的
+#
+# """
+#
+#
+# class Solution:
+#     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+#         if not arr:
+#             return []
+#         if k == 0:
+#             return []
+#
+#         res = []
+#         # 理解:
+#         # 是为了找 oooooxxxxx的第一个x
+#         # 所以这个地方一定是right开始
+#         right = self.findXIndex(arr, x)
+#         left = right - 1
+#         for i in range(k):
+#             if self.isLeftCloser(arr, left, right, x):
+#                 left -= 1
+#             else:
+#                 right += 1
+#
+#         return arr[left + 1: right]
+#
+#         # 这个 left + 1 是因为在上面的 left -= 1是为next step的，所以要往回走一步
+#         # right在数组切片操作里正好不算当前的值，所以就不用往回算一步了
+#
+#     def findXIndex(self, arr, x):
+#         left = 0
+#         right = len(arr) - 1
+#
+#         while left + 1 < right:
+#             mid = (left + right) // 2
+#             if x > arr[mid]:
+#                 left = mid
+#             else:
+#                 right = mid
+#         # 理解:
+#         # 是为了找 oooooxxxxx的第一个x
+#         if arr[left] >= x:
+#             return left
+#         if arr[right] >= x:
+#             return right
+#         return len(arr)
+#
+#     def isLeftCloser(self, arr, left, right, x):
+#         if left < 0:
+#             return False
+#         # 这里的判断边界一定是 >=
+#         # 一开始写成了 right > len(arr)
+#         # 这个肯定是不对的
+#         # 因为right == len(arr) 就已经越界了
+#         if right >= len(arr):
+#             return True
+#
+#         if abs(arr[left] - x) <= abs(arr[right] - x):
+#             return True
+#         return False
+
 """
-    2021.05.04
-    22:43 - 23:35
-    
-    找到k个与x最相近的
-    
+    2021.05.05
+    21:07 - 21:23
+    music on
 """
 
 
-class Solution:
-    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
-        if not arr:
-            return []
-        if k == 0:
-            return []
+def findClosestElements(arr, k, target):
+    if not arr or k == 0:
+        return []
+    if len(arr) == 1:
+        return arr
 
-        res = []
-        # 理解:
-        # 是为了找 oooooxxxxx的第一个x
-        # 所以这个地方一定是right开始
-        right = self.findXIndex(arr, x)
-        left = right - 1
-        for i in range(k):
-            if self.isLeftCloser(arr, left, right, x):
-                res.append(arr[left])
-                left -= 1
-            else:
-                res.append(arr[right])
-                right += 1
+    right = find_O(arr, target)
+    left = right - 1
 
-        return arr[left + 1:right]
-        # 这个 left + 1 是因为在上面的 left -= 1是为next step的，所以要往回走一步
-        # right在数组切片操作里正好不算当前的值，所以就不用往回算一步了
+    for _ in range(k):
+        if isLeftCloser(arr, left, right, target):
+            left -= 1
+        else:
+            right += 1
+    return arr[left + 1: right]
 
-    def findXIndex(self, arr, x):
-        left = 0
-        right = len(arr) - 1
 
-        while left + 1 < right:
-            mid = (left + right) // 2
-            if x > arr[mid]:
-                left = mid
-            else:
-                right = mid
-        # 理解:
-        # 是为了找 oooooxxxxx的第一个x
-        if arr[left] >= x:
-            return left
-        if arr[right] >= x:
-            return right
-        return len(arr)
+def find_O(arr, target):
+    left = 0
+    right = len(arr) - 1
 
-    def isLeftCloser(self, arr, left, right, x):
-        if left < 0:
-            return False
-        # 这里的判断边界一定是 >=
-        # 一开始写成了 right > len(arr)
-        # 这个肯定是不对的
-        # 因为right == len(arr) 就已经越界了
-        if right >= len(arr):
-            return True
+    while left + 1 < right:
+        mid = (left + right) // 2
+        """
+            target = 4
+            [1, 2, 5, 6, 10]
 
-        if abs(arr[left] - x) <= abs(arr[right] - x):
-            return True
+            
+            这是第三次思考这个地方:
+            if target < arr[mid] 是最符合语义的写法
+            因为目标是要找 xxxxxxooooo 的第一个o
+        """
+        if target < arr[mid]:
+            right = mid
+        else:
+            left = mid
+
+    if arr[left] >= target:
+        return left
+    if arr[right] >= target:
+        return right
+
+    # 剩下一种就是数组里面没有东西比 target 大
+    # 就直接越界了
+    # 所以等一下还要处理越界的情况
+    return len(arr)
+
+
+def isLeftCloser(arr, left, right, target):
+    if right >= len(arr):
+        return True
+    if left < 0:
         return False
 
+    if abs(arr[left] - target) <= abs(arr[right] - target):
+        return True
+    return False
 
-a = Solution()
-arr = [-2, -1, 1, 2, 3, 4, 5]
+
+arr0 = [-2, -1, 1, 2, 3, 4, 5]
 arr1 = [1, 1, 1, 10, 10, 10]
 arr2 = [-2, -1, 1, 2, 3, 4, 5]
 
-print(a.findClosestElements(arr1, 3, 3))
+print(findClosestElements(arr2, 7, 3))
