@@ -22,9 +22,6 @@ def dfs(arr, index, subset, res):
     dfs(arr, index + 1, subset, res)
 
 
-print(subsets([1, 2, 3]))
-
-
 def subsets2(nums):
     nums = sorted(nums)
     res = []
@@ -42,4 +39,13 @@ def subsets2(nums):
     return res
 
 
-print(subsets2([1, 2, 3]))
+def dfs2(arr, index, subset, res):
+    res.append(list(subset))
+
+    for i in range(index, len(arr)):
+        subset.append(arr[i])
+        dfs2(arr, index + 1, subset, res)
+        subset.pop()
+
+
+print(subsets([1, 2, 3]))
