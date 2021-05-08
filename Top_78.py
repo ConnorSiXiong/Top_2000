@@ -65,6 +65,11 @@ def bfs(arr):
     return res
 
 
+"""
+another bfs
+https://leetcode.com/problems/subsets/discuss/277064/bfs-to-generate-subset
+"""
+
 # print(subsets([1, 2, 3]))
 print(bfs([1, 2, 3]))
 print(subsets2([1, 2, 3]))
