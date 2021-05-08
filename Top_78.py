@@ -48,4 +48,23 @@ def dfs2(arr, index, subset, res):
         subset.pop()
 
 
-print(subsets([1, 2, 3]))
+def bfs(arr):
+    if not arr:
+        return [[]]
+    res = []
+    # deque的初始化按下面这样写，
+    # 如果初始化写成q = collections.deque([[[], 0]]) 会 confusing
+    q = collections.deque([])
+    q.append([[], 0])
+
+    while q:
+        subset, index = q.popleft()
+        res.append(subset)
+        for i in range(index, len(arr)):
+            q.append([subset + [arr[i]], i + 1])  # 注意这个地方往下一层是i+1，不是index+1，写错了
+    return res
+
+
+# print(subsets([1, 2, 3]))
+print(bfs([1, 2, 3]))
+print(subsets2([1, 2, 3]))
