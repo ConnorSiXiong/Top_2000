@@ -287,5 +287,8 @@ def isLeftCloser(arr, left, right, target):
 arr0 = [-2, -1, 1, 2, 3, 4, 5]
 arr1 = [1, 1, 1, 10, 10, 10]
 arr2 = [-2, -1, 1, 2, 3, 4, 5]
+arr3 = [5, 7, 7, 8, 8, 10]
 
-print(findClosestElements(arr2, 7, 3))
+print(findClosestElements(arr3, 8, 2))
+
+
