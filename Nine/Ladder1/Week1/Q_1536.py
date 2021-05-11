@@ -8,17 +8,17 @@ def searchRange(nums, target):
         return [-1, -1]
     second_index = findIndex(nums, target + 1)
 
-    return [first_index, second_index-1]
+    return [first_index, second_index - 1]
 
 
-def findIndex( nums, target):
+def findIndex(nums, target):
     # xxxooo
     left = 0
     right = len(nums) - 1
 
     while left + 1 < right:
         mid = (left + right) // 2
-        if target > nums[mid]:
+        if nums[mid] < target:
             left = mid
         else:
             right = mid
@@ -29,4 +29,5 @@ def findIndex( nums, target):
         return right
     return -1
 
-print(searchRange([5,7,7,8,8,10], 8))
+
+print(searchRange([5, 7, 7, 8, 8, 10], 8))
