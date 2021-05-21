@@ -16,55 +16,44 @@ l1_r = TreeNode(3)
 l2_ll = TreeNode(4)
 l2_lr = TreeNode(5)
 
+l3_lll = TreeNode(6)
+
 l0.left = l1_l
 l0.right = l1_r
 
 l1_l.left = l2_ll
 l1_l.right = l2_lr
 
+l2_ll.left = l3_lll
+
 
 def getShortestPath(root):
+    paths = []
     if not root:
-        return None
+        return paths
 
-    q = collections.deque([])
-    q.append(root)
+    node_q = collections.deque([root])
+    path_q = collections.deque([str(root.val)])
 
-    paths = {}
-    if root.left:
-        paths[root.left.val] = [root.val]
-    if root.right:
-        paths[root.right.val] = [root.val]
-
-    while q:
-        q_size = len(q)
-        print(paths)
-        print('----------------')
-        print('queue')
-        for i in q:
-            print(i.val)
-        print('----------------')
+    while node_q:
+        q_size = len(node_q)
 
         for _ in range(q_size):
-            cur_node = q.popleft()
+            cur_node = node_q.popleft()
+            path = path_q.popleft()
+
             if cur_node.left is None and cur_node.right is None:
-                print(paths[cur_node.val].append(cur_node.val))
-                return paths[cur_node.val].append(cur_node.val)
+                paths.append(path)
+                print(paths)
+                return
 
             if cur_node.left:
-                paths[cur_node.left.val].append(cur_node.val)
-                print(cur_node.val)
-                print(paths[cur_node.val])
-                paths[cur_node.left.val] = paths[cur_node.val]
-                q.append(cur_node.left)
+                node_q.append(cur_node.left)
+                path_q.append(path + '->' + str(cur_node.left.val))
             if cur_node.right:
-                paths[cur_node.right.val].append(cur_node.val)
-                paths[cur_node.right.val] = paths[cur_node.val]
-                q.append(cur_node.right)
-            print(paths)
-            del paths[cur_node.val]
-
-    return None
+                node_q.append(cur_node.right)
+                path_q.append(path + '->' + str(cur_node.right.val))
+    return paths
 
 
 getShortestPath(l0)
