@@ -57,3 +57,37 @@ def getShortestPath(root):
 
 
 getShortestPath(l0)
+
+import sys
+
+
+def getShortestPath2(root):
+    paths = []
+    dfs(root, str(root.val), paths)
+    # print(paths)
+    return [findShortestOne(paths)]
+
+
+def dfs(node, cur_path, paths):
+    if node.left is None and node.right is None:
+        paths.append(cur_path)
+        return
+
+    if node.left:
+        cur_path1 = cur_path + '->' + str(node.left.val)
+        dfs(node.left, cur_path1, paths)
+    if node.right:
+        cur_path2 = cur_path + '->' + str(node.right.val)
+        dfs(node.right, cur_path2, paths)
+
+
+def findShortestOne(paths_arr):
+    shortest_len = sys.maxsize
+    shortest = None
+    for i in paths_arr:
+        if len(i) < shortest_len:
+            shortest = i
+    return shortest
+
+
+print(getShortestPath2(l0))
