@@ -23,6 +23,7 @@ def ladderLength(beginWord: str, endWord: str, wordList) -> int:
         for i in range(l):
             temp = word[:i] + '_' + word[i + 1:]
             # print(word)
+
             # print(temp)
             dic[temp].append(word)
     pprint.pprint(dic)
