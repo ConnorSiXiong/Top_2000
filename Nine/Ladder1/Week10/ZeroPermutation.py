@@ -1,4 +1,6 @@
 s = "001000"
+
+
 #    0123456
 
 def stringCount(s):
@@ -27,6 +29,8 @@ def stringCount(s):
 # 把 j 的初始化给优化了
 
 s = "1111001100"
+
+
 # s = "001000"
 #    0123456
 
@@ -47,6 +51,3 @@ def stringCount2(s):
         # 所以不用进行其他的判断了，对比前面的方法
         res += (j - i)
     return res
-
-
-print(stringCount2(s))
