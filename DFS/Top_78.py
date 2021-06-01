@@ -96,7 +96,6 @@ print(subsets2([1, 2, 3]))
 
 def subsets3(arr):
     arr = sorted(arr)
-
     res = []
     dfs3(arr, 0, [], res)
     return res
@@ -111,3 +110,28 @@ def dfs3(arr, index, one_set, res):
 
 
 print(subsets3([1, 2, 3]))
+
+import collections
+
+
+def bfs_subset(arr):
+    arr = sorted(arr)
+
+    q = collections.deque([])
+    q.append(([], 0))
+    res = []
+    while q:
+        cur, index = q.popleft()
+        res.append(cur)
+
+        for i in range(index, len(arr)):
+            if cur is None:
+                cur = []
+            cur2 = cur.copy()
+            cur2.append(arr[i])
+            q.append((cur2, i + 1))
+
+    return res
+
+
+bfs_subset([1, 2, 3])
