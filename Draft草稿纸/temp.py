@@ -76,3 +76,22 @@ def minimumAbsDifference(arr):
 
 
 print(minimumAbsDifference([4, 2, 1, 3]))
+
+arr = [1, 2, 3]
+
+
+# 从arr 里面取k个数，获得他们的全排列
+def test(arr):
+    res = []
+    for i in range(len(arr)):
+        dfs0(arr, i, [], res)
+    return res
+
+
+def dfs0(arr, index, one_set, res):
+    for i in range(len(arr)):
+        if i == index:
+            continue
+        one_set.append(arr[i])
+        dfs0(arr, )
+

@@ -56,5 +56,58 @@ def subsets(nums: List[int]) -> List[List[int]]:
     return result
 
 
-nums = [1,2,3]
-print(subsets(nums))
+nums = [1, 2, 3]
+
+
+# print(subsets(nums))
+
+
+def subsets2(nums):
+    if not nums:
+        return [[]]
+
+    visited = set([])
+    res = []
+    dfs(nums, [], visited, res)
+    print(res)
+    return res
+
+
+def dfs(nums, one_set, visited, res):
+    one_set = sorted(one_set)
+    if one_set not in res:
+        res.append(one_set.copy())
+
+    if len(visited) == len(nums):
+        return
+
+    for i in nums:
+        if i in visited:
+            continue
+        visited.add(i)
+        one_set.append(i)
+        dfs(nums, one_set, visited, res)
+        visited.remove(i)
+        one_set.pop()
+
+
+print(subsets2([1, 2, 3]))
+
+
+def subsets3(arr):
+    arr = sorted(arr)
+
+    res = []
+    dfs3(arr, 0, [], res)
+    return res
+
+
+def dfs3(arr, index, one_set, res):
+    res.append(one_set[:])
+    for i in range(index, len(arr)):
+        one_set.append(arr[i])
+        dfs3(arr, i + 1, one_set, res)
+        one_set.pop()
+
+
+print(subsets3([1, 2, 3]))
