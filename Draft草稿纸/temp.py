@@ -95,3 +95,123 @@ def dfs0(arr, index, one_set, res):
         one_set.append(arr[i])
         dfs0(arr, )
 
+
+grid = [[0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+        [0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0],
+        [0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0]]
+
+import numpy as np
+
+
+def maxAreaOfIsland(grid):
+    max_area = 0
+    grid = np.array(grid)
+    rows = grid.shape[0]
+    cols = grid.shape[1]
+
+    for i in range(rows):
+        for j in range(cols):
+            if grid[i, j] == 0:
+                continue
+            max_area = max(max_area, dfs(grid, i, j))
+    return max_area
+
+
+def dfs(grid, x, y):
+    if not isValid(grid, x, y):
+        return 0
+    grid[x, y] = 0
+    return 1 + dfs(grid, x + 1, y) + dfs(grid, x - 1, y) + dfs(grid, x, y + 1) + dfs(grid, x, y - 1)
+
+
+def isValid(grid, x, y):
+    if not (0 <= x < grid.shape[0] and 0 <= y < grid.shape[1]):
+        return False
+    if grid[x, y] == 0:
+        return False
+    return True
+
+
+# print(maxAreaOfIsland(grid))
+
+import collections
+
+D = [(1, 0), (0, -1), (-1, 0), (0, 1)]
+
+
+def maxAreaOfIsland(grid):
+    max_area = 0
+    q = collections.deque([])
+
+    grid = np.array(grid)
+
+    rows = grid.shape[0]
+    cols = grid.shape[1]
+    for i in range(rows):
+        for j in range(cols):
+            if grid[i, j] == 0:
+                continue
+            cur_area = 1
+            q.append((i, j))
+            grid[i, j] = 0  # 这个地方写漏了
+
+            while q:
+                position = q.popleft()
+                x, y = position[0], position[1]
+
+                for (dx, dy) in D:
+                    next_x = x + dx
+                    next_y = y + dy
+                    if isValid(grid, next_x, next_y):
+                        cur_area += 1
+                        grid[next_x, next_y] = 0
+                        q.append((next_x, next_y))
+            print(cur_area)
+            max_area = max(max_area, cur_area)
+    return max_area
+
+
+print(maxAreaOfIsland(grid))
+#
+# def maxAreaOfIsland(grid):
+#     max_area = 0
+#
+#     grid = np.array(grid)
+#     rows = grid.shape[0]
+#     cols = grid.shape[1]
+#     for i in range(rows):
+#         for j in range(cols):
+#             if grid[i, j] == 0:
+#                 continue
+#             max_area = max(dfsM(grid, i, j), max_area)
+#
+#     return max_area
+#
+#
+# def dfsM(grid, x, y):
+#     if not isValid(grid, x, y):
+#         return 0
+#     grid[x][y] = 0
+#     my_area = 1
+#     my_area += dfsM(grid, x + 1, y)
+#     my_area += dfsM(grid, x - 1, y)
+#     my_area += dfsM(grid, x, y + 1)
+#     my_area += dfsM(grid, x, y - 1)
+#     return my_area
+#
+#
+# def isValid(grid, x, y):
+#
+#     if not (0 <= x < grid.shape[0] and 0 <= y < grid.shape[1]):
+#         return False
+#     if grid[x, y] == 0:
+#         return False
+#     return True
+#
+#
+# print(maxAreaOfIsland(grid))
