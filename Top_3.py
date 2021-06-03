@@ -57,6 +57,10 @@ def lengthOfLongestSubstring3(s):
         # 如果放在开头计算
         # 那么最后一个j+1到最后一个位置就没法算了，到最后一个位置( j == len(s)-1 )会发生s[j] out of index
 
+        # 这个能放在while里面循环的另外一个原因就是
+        # if里面的while，把切片数组里最前面重复的s[j]给去掉了，保证了切片数组里一定没有重复的东西
+        # 所以能放在底下更新res
+
         # 这个if else去掉也行
         # 方便理解
         if s[j] in longest:
