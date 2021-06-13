@@ -1,3 +1,5 @@
+from typing import List
+
 arr0 = [-2, -1, 1, 2, 3, 4, 5]
 arr1 = [1, 1, 1, 10, 10, 10]
 arr2 = [-2, -1, 1, 2, 3, 4, 5]
@@ -75,7 +77,7 @@ def minimumAbsDifference(arr):
     return dic[min_val]
 
 
-print(minimumAbsDifference([4, 2, 1, 3]))
+# print(minimumAbsDifference([4, 2, 1, 3]))
 
 arr = [1, 2, 3]
 
@@ -176,7 +178,7 @@ def maxAreaOfIsland(grid):
     return max_area
 
 
-print(maxAreaOfIsland(grid))
+# print(maxAreaOfIsland(grid))
 #
 # def maxAreaOfIsland(grid):
 #     max_area = 0
@@ -215,3 +217,69 @@ print(maxAreaOfIsland(grid))
 #
 #
 # print(maxAreaOfIsland(grid))
+"""
+a = [5, 3, 1, 4, 2]
+
+alice = 2
+a1 = 13
+a = [5, 3, 1, 4]
+
+bob - min
+1) bob = 5
+sum = 8
+
+2) bob = 4
+sum = 9
+
+
+b1 = 8
+
+a = [4, 3, 1]
+
+alice = 3
+a1 = 5
+
+a = [4, 3]
+bob = 4
+b1 = 5
+
+print(13+8 - 9 - 5)
+"""
+
+import numpy as np
+class Solution:
+    def stoneGameVII(self, stones: List[int]) -> int:
+        dp = [[0 for _ in range(len(stones))] for _ in range(len(stones))]  # dp table n x n
+        run_sum = [0]  # running sum -> sum [i..j] = run_sum[j] - run_sum[i]
+        s = 0
+
+        ## Calculation of running sum
+        for i in stones:
+            s += i
+            run_sum.append(s)
+        print(run_sum)
+        n = len(stones)
+
+        for k in range(1, n):  # no. of stones left
+            for i in range(0, n - k):  # from each starting point
+                print('k', k)
+                print('i', i)
+                remove_i_stone = (run_sum[i + k + 1] - run_sum[i + 1])  # score after removing i th stone
+                remove_j_stone = (run_sum[i + k] - run_sum[i])  # score after removing j th stone
+                print('remove_i_stone', remove_i_stone)
+                print('remove_j_stone', remove_j_stone)
+                print('dp')
+                print(np.array(dp))
+                if (n - (k + 1)) % 2 == 0:  # alice's move
+                    dp[i][i + k] = max(remove_i_stone + dp[i + 1][i + k],
+                                       remove_j_stone + dp[i][i + k - 1])
+                else:  # bob's move
+                    dp[i][i + k] = min(-remove_i_stone + dp[i + 1][i + k],
+                                       - remove_j_stone + dp[i][i + k - 1])
+
+        return dp[0][n - 1]
+
+
+a = Solution()
+arr = [5, 3, 1, 4, 2]
+print(a.stoneGameVII(arr))
