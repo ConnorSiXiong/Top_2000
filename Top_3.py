@@ -1,5 +1,5 @@
 s = "pbavjvkkmvjk"
-
+s = 'abcabcdefg'
 
 def lengthOfLongestSubstring(s):
     if len(s) <= 1:
@@ -23,7 +23,7 @@ def lengthOfLongestSubstring(s):
 
 lengthOfLongestSubstring(s)
 
-
+# s = 'abcabcdefg'
 def lengthOfLongestSubstring2(s: str) -> int:
     characters = set()
     left = 0
@@ -73,4 +73,38 @@ def lengthOfLongestSubstring3(s):
 
     return res
 
-print(lengthOfLongestSubstring3(s))
+
+def lengthOfLongestSubstring4(s):
+    """
+    2021.06.27
+    这种求 substring 的
+    往sliding window那个方向靠
+
+    然后这种的题，用while处理好像比用for处理更容易
+
+    o(2n) = o(n)
+    """
+    comb = set()
+
+    left = 0
+    right = 0
+
+    res = 0
+    while right < len(s):
+        if s[right] in comb:
+            # a b c d c c
+            # 如果当前有重复的，会一直清空，知道清空到没有（在这个例子里就是清空到当前位置）为止
+            comb.remove(s[left])
+            left += 1
+        else:
+            comb.add(s[right])
+            right += 1
+
+            res = max(res, right - left)
+    return res
+
+
+
+
+print(lengthOfLongestSubstring2(s))
+print(lengthOfLongestSubstring4(s))
