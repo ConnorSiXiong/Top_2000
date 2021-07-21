@@ -283,7 +283,7 @@
 # a = Solution()
 # arr = [5, 3, 1, 4, 2]
 # print(a.stoneGameVII(arr))
-
+from typing import List
 
 words = [
     ('a', 9),
@@ -447,3 +447,130 @@ a.append([1000, 'bb'])
 a.append([3, 'cc'])
 
 t = HuffmanTree(words)
+
+
+
+from collections import deque
+
+prerequisites = [
+    [2, 1],
+    [2, 0],
+    [3, 2]
+]
+
+from collections import defaultdict
+
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        edges = defaultdict(list)
+        indge = [0] * numCourses
+        res = 0
+
+        for i in prerequisites:
+            edges[i[1]].append(i[0])
+            indge[i[0]] += 1
+
+        q = deque([u for u in range(numCourses) if indge[u] == 0])
+
+        while q:
+            u = q.popleft()
+            res += 1
+            for v in edges[u]:
+                indge[v] -= 1
+                if indge[v] == 0:
+                    q.append(v)
+        return res == numCourses
+
+
+a = Solution()
+
+a.canFinish(4, prerequisites)
+
+"""
+>>> s = [('yellow', 1), ('blue', 2), ('yellow', 3), ('blue', 4), ('red', 1)]
+>>> d = defaultdict(list)
+>>> d.default_factory
+<type 'list'>
+>>> for k, v in s:
+...     d[k].append(v)
+>>> d.items()
+[('blue', [2, 4]), ('red', [1]), ('yellow', [1, 3])]
+>>> d
+defaultdict(<type 'list'>, {'blue': [2, 4], 'red': [1], 'yellow': [1, 3]})
+"""
+
+prerequisites = [
+    [2, 1],
+    [2, 0],
+    [3, 2]
+]
+
+a = Solution()
+
+print(a.canFinish(4, prerequisites))
+class Solution2:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        pre_course_dict = defaultdict(list)
+        course_prerequisites = [0] * numCourses
+
+        for i in prerequisites:
+            pre_course_dict[i[1]].append(i[0])
+            course_prerequisites[i[0]] += 1
+
+        q = deque([i for i in range(numCourses) if course_prerequisites[i] == 0])
+        res = 0
+        while q:
+            finished = q.popleft()
+            res += 1
+            for i in pre_course_dict[finished]:
+                course_prerequisites[i] -= 1
+                if course_prerequisites[i] == 0:
+                    q.append(i)
+        return res == numCourses
+
+
+b = Solution2()
+
+print(b.canFinish(4, prerequisites))
+
+prerequisites = [
+    [2, 1],
+    [2, 0],
+    [3, 2]
+]
+
+
+class Solution3:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        class_dict = defaultdict(list)
+        lesson_arr = [0] * numCourses
+
+        for i in prerequisites:
+            lesson_arr[i[0]] += 1
+            class_dict[i[1]].append(i[0])  # 课程加一个前置
+
+        q = deque([i for i in range(numCourses) if lesson_arr[i] == 0])  # -> 队列初始化
+
+        while q:
+            cur = q.popleft()
+
+            for i in class_dict[cur]:
+                lesson_arr[i] -= 1
+                if lesson_arr[i] == 0:
+                    q.append(i)
+
+        return sum(lesson_arr) == 0
+
+
+
+
+
+
+a = Solution3()
+print(a.canFinish(4, prerequisites))
+
+
+
+
+
