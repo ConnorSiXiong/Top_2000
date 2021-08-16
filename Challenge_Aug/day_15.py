@@ -1,3 +1,35 @@
+"""
+day 4
+leetcode 79 没做过
+
+看了一下，用dfs backtracking
+
+Author: Alex
+Date: 16/08/2021 - NZ Auckland
+      19:30 pm - 20:24 pm
+      做出基本解法
+
+      20:24 pm - 20:40 pm
+      没有考虑target里面全是重复的单词的情况
+
+      最后一个case没过，需要优化
+
+      思路：
+      1.while 循环的边界, 是 <=
+        切片操作的时候，index是算左，不算右
+
+      2.left和right pointers
+
+      2.1 先移动right，扩大窗口，当t全部存在时，记录一下
+      2.2 移动left，缩小窗口，开始打擂台
+      2.3 当t无法全部存在的时候，left停止移动，又开始移动right（回到2.1）
+
+      Q - 我想，可能是打擂台的算法优化一下就能通过最后TEL的case
+
+
+"""
+
+
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         left = 0
@@ -46,6 +78,7 @@ class Solution:
             else:
                 target_dict[i] = 1
         return target_dict
+
 
 S = "ADOBECODEBANC"
 T = "ABC"
