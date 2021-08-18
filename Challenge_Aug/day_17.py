@@ -36,6 +36,11 @@ Date: 18/08/2021 - NZ Auckland
       解法最后少了一个pop
 
       那么：backtracking 的 pop什么时候用？
+
+      # 我把test case里
+      4 -> -4 -> 0 -> 3 这几个应该是左子树的，被我改成右子树了，
+      然后解法最后少了一个pop的问题就暴露出来了，整个path无法回溯
+
 """
 
 
@@ -110,9 +115,9 @@ level_3 = TreeNode(-4)
 level_4 = TreeNode(0)
 level_5 = TreeNode(3)
 
-level_2_left_right.left = level_3
-level_3.left = level_4
-level_4.left = level_5
+level_2_left_right.right = level_3
+level_3.right = level_4
+level_4.right = level_5
 
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
@@ -128,13 +133,14 @@ class Solution:
         if node.val >= sorted(path)[-1]:
             res.append(1)
         path.append(node.val)
-
+        print(path)
         if node.left:
             self.dfs(node.left, path, res)
             path.pop()
         if node.right:
             self.dfs(node.right, path, res)
-            path.pop()
+            path.pop()  # 如果这一步不写，右子树就没法回溯了
+
 
 
 class Solution2(object):
