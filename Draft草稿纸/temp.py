@@ -283,6 +283,7 @@
 # a = Solution()
 # arr = [5, 3, 1, 4, 2]
 # print(a.stoneGameVII(arr))
+from collections import Counter
 from typing import List
 
 words = [
@@ -683,5 +684,74 @@ class Solution:
         return 0
 
 
-a = Solution()
-a.minimizeTheDifference(mat, 10)
+# a = Solution()
+# a.minimizeTheDifference(mat, 10)
+
+
+
+class Solution2:
+    def findDifferentBinaryString(self, nums: List[str]) -> str:
+
+        box = Counter(set(nums))
+        cur = ''
+        res = ''
+        flag = True
+
+        def dfs(cur_str, box, index, n):
+            print('comb', cur_str)
+            nonlocal flag
+            nonlocal res
+            if not flag:
+                return
+
+            if index == n:
+                if box[cur_str] == 0:
+                    res = cur_str
+                    flag = False
+                return
+
+            for i in range(2):
+                cur_str += str(i)
+                dfs(cur_str, box, index + 1, n)
+                cur_str = cur_str[:-1]
+
+        dfs(cur, box, 0, len(nums))
+        print(res)
+        return res
+
+
+class Solution3:
+    def findDifferentBinaryString(self, nums: List[str]) -> str:
+        res = ''
+        stop = False
+        n = len(nums)
+        box = Counter(set(nums))
+
+        def dfs(comb, box, n):
+            print('comb', comb)
+            nonlocal res
+            nonlocal stop
+            if stop is True:
+                return
+
+            if len(comb) == n:
+                if box[comb] == 0:
+                    res = comb
+                    stop = True
+                    return
+                return
+
+            for i in range(2):
+                comb += str(i)
+                dfs(comb, box, n)
+                comb = comb[:-1]
+
+        dfs('', box, n)
+        print(res)
+        return res
+
+
+
+a = Solution3()
+# a.findDifferentBinaryString(["00001101111011","11011001010101","00001000000001","00011100000000","01101111001010","01011011010101","00110100111111","10001100101110","01000000010011","00110000101011","01101010000101","10000111010100","11000000111000","00101101110110"])
+a.findDifferentBinaryString(['000','001','011'])
