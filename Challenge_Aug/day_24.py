@@ -48,5 +48,16 @@ class Solution:
 
         return str(part1) + '+' + str(part2) + 'i'
 
+
 a = Solution()
 print(a.complexNumberMultiply(num1b, num2b))
+
+
+class Solution2:
+    def complexNumberMultiply(self, num1: str, num2: str) -> str:
+        """
+        添加了小明的解法，这个写法很简洁
+        """
+        a1, b1 = map(int, num1[:-1].split('+'))
+        a2, b2 = map(int, num2[:-1].split('+'))
+        return '%d+%d' % (a1 * a1 - b1 * b2, a2 * b2 + a2 * b1)
