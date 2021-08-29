@@ -1,3 +1,4 @@
+import random
 # from typing import List
 #
 # arr0 = [-2, -1, 1, 2, 3, 4, 5]
@@ -757,32 +758,32 @@ import numpy as np
 # a = Solution3()
 # # a.findDifferentBinaryString(["00001101111011","11011001010101","00001000000001","00011100000000","01101111001010","01011011010101","00110100111111","10001100101110","01000000010011","00110000101011","01101010000101","10000111010100","11000000111000","00101101110110"])
 # a.findDifferentBinaryString(['000','001','011'])
-
-
-arr = [87063, 61094, 44530, 21297, 95857, 93551, 9918]
-k = 6
-from typing import List
-import random
-
-
-# 74560
-#
-class Solution:
-    def minimumDifference(self, nums: List[int], k: int) -> int:
-        n = len(nums)
-        result = float('inf')
-        nums.sort()
-        for i in range(n - k + 1):
-            result = int(min(result, nums[i + k - 1] - nums[i]))
-
-        return result
 #
 #
-
-arr = [90]
-k = 1
-a = Solution()
-print(a.minimumDifference(arr, k))
+# arr = [87063, 61094, 44530, 21297, 95857, 93551, 9918]
+# k = 6
+# from typing import List
+# import random
+#
+#
+# # 74560
+# #
+# class Solution:
+#     def minimumDifference(self, nums: List[int], k: int) -> int:
+#         n = len(nums)
+#         result = float('inf')
+#         nums.sort()
+#         for i in range(n - k + 1):
+#             result = int(min(result, nums[i + k - 1] - nums[i]))
+#
+#         return result
+# #
+# #
+#
+# arr = [90]
+# k = 1
+# a = Solution()
+# print(a.minimumDifference(arr, k))
 #
 # print(95857 - 21297)
 #
@@ -837,3 +838,22 @@ print(a.minimumDifference(arr, k))
 # # print(arr)
 #
 # print('ans', a.kthLargestNumber(arr, 9900))
+
+
+class Solution:
+    def findKthLargest(self, nums, k):
+        if not nums:
+            return
+        pivot = random.choice(nums)
+        right = [x for x in nums if x > pivot]
+        mid = [x for x in nums if x == pivot]
+        left = [x for x in nums if x < pivot]
+
+        R, M = len(right), len(mid)
+
+        if k <= R:
+            return self.findKthLargest(left, k)
+        elif k > R + M:
+            return self.findKthLargest(right, k - R - M)
+        else:
+            return mid[0]
