@@ -284,6 +284,7 @@
 # arr = [5, 3, 1, 4, 2]
 # print(a.stoneGameVII(arr))
 from collections import Counter
+
 from typing import List
 
 words = [
@@ -673,85 +674,166 @@ level_1_right.right = level_2_right_right
 
 import numpy as np
 
-mat = [[3, 2, 1], [40, 5, 6], [7, 8, 9]]
+#
+# mat = [[3, 2, 1], [40, 5, 6], [7, 8, 9]]
+#
+#
+# class Solution:
+#     def minimizeTheDifference(self, mat: List[List[int]], target: int) -> int:
+#         for row in mat:
+#             row = sorted(row)
+#
+#         return 0
+#
+#
+# # a = Solution()
+# # a.minimizeTheDifference(mat, 10)
+#
+#
+#
+# class Solution2:
+#     def findDifferentBinaryString(self, nums: List[str]) -> str:
+#
+#         box = Counter(set(nums))
+#         cur = ''
+#         res = ''
+#         flag = True
+#
+#         def dfs(cur_str, box, index, n):
+#             print('comb', cur_str)
+#             nonlocal flag
+#             nonlocal res
+#             if not flag:
+#                 return
+#
+#             if index == n:
+#                 if box[cur_str] == 0:
+#                     res = cur_str
+#                     flag = False
+#                 return
+#
+#             for i in range(2):
+#                 cur_str += str(i)
+#                 dfs(cur_str, box, index + 1, n)
+#                 cur_str = cur_str[:-1]
+#
+#         dfs(cur, box, 0, len(nums))
+#         print(res)
+#         return res
+#
+#
+# class Solution3:
+#     def findDifferentBinaryString(self, nums: List[str]) -> str:
+#         res = ''
+#         stop = False
+#         n = len(nums)
+#         box = Counter(set(nums))
+#
+#         def dfs(comb, box, n):
+#             print('comb', comb)
+#             nonlocal res
+#             nonlocal stop
+#             if stop is True:
+#                 return
+#
+#             if len(comb) == n:
+#                 if box[comb] == 0:
+#                     res = comb
+#                     stop = True
+#                     return
+#                 return
+#
+#             for i in range(2):
+#                 comb += str(i)
+#                 dfs(comb, box, n)
+#                 comb = comb[:-1]
+#
+#         dfs('', box, n)
+#         print(res)
+#         return res
+#
+#
+#
+# a = Solution3()
+# # a.findDifferentBinaryString(["00001101111011","11011001010101","00001000000001","00011100000000","01101111001010","01011011010101","00110100111111","10001100101110","01000000010011","00110000101011","01101010000101","10000111010100","11000000111000","00101101110110"])
+# a.findDifferentBinaryString(['000','001','011'])
 
 
+arr = [87063, 61094, 44530, 21297, 95857, 93551, 9918]
+k = 6
+from typing import List
+import random
+
+
+# 74560
+#
 class Solution:
-    def minimizeTheDifference(self, mat: List[List[int]], target: int) -> int:
-        for row in mat:
-            row = sorted(row)
-
-        return 0
-
-
-# a = Solution()
-# a.minimizeTheDifference(mat, 10)
-
-
-
-class Solution2:
-    def findDifferentBinaryString(self, nums: List[str]) -> str:
-
-        box = Counter(set(nums))
-        cur = ''
-        res = ''
-        flag = True
-
-        def dfs(cur_str, box, index, n):
-            print('comb', cur_str)
-            nonlocal flag
-            nonlocal res
-            if not flag:
-                return
-
-            if index == n:
-                if box[cur_str] == 0:
-                    res = cur_str
-                    flag = False
-                return
-
-            for i in range(2):
-                cur_str += str(i)
-                dfs(cur_str, box, index + 1, n)
-                cur_str = cur_str[:-1]
-
-        dfs(cur, box, 0, len(nums))
-        print(res)
-        return res
-
-
-class Solution3:
-    def findDifferentBinaryString(self, nums: List[str]) -> str:
-        res = ''
-        stop = False
+    def minimumDifference(self, nums: List[int], k: int) -> int:
         n = len(nums)
-        box = Counter(set(nums))
+        result = float('inf')
+        nums.sort()
+        for i in range(n - k + 1):
+            result = int(min(result, nums[i + k - 1] - nums[i]))
 
-        def dfs(comb, box, n):
-            print('comb', comb)
-            nonlocal res
-            nonlocal stop
-            if stop is True:
-                return
+        return result
+#
+#
 
-            if len(comb) == n:
-                if box[comb] == 0:
-                    res = comb
-                    stop = True
-                    return
-                return
-
-            for i in range(2):
-                comb += str(i)
-                dfs(comb, box, n)
-                comb = comb[:-1]
-
-        dfs('', box, n)
-        print(res)
-        return res
-
-
-
-a = Solution3()
-# a.findDifferentBinaryString(["00001101111011","11011001010101","00001000000001","00011100000000","01101111001010","01011011010101","00110100111111","10001100101110","01000000010011","00110000101011","01101010000101","10000111010100","11000000111000","00101101110110"])
-a.findDifferentBinaryString(['000','001','011'])
+arr = [90]
+k = 1
+a = Solution()
+print(a.minimumDifference(arr, k))
+#
+# print(95857 - 21297)
+#
+#
+# class Solution:
+#     def kthLargestNumber(self, nums: List[str], k: int) -> str:
+#
+#         nums = [int(i) for i in nums]
+#         print(nums)
+#         nums.sort()
+#         print(nums)
+#         print(nums[len(nums) - k + 1])
+#
+#
+#         def partition(arr: List[int], left: int, right: int) -> int:
+#             index = right
+#             # print(index)
+#             temp = arr[index]
+#             arr[index] = arr[left]
+#             arr[left] = temp
+#
+#             flag = arr[left]
+#             j = left
+#             for i in range(left + 1, right + 1):
+#                 if arr[i] < flag:
+#                     j += 1
+#                     temp = arr[i]
+#                     arr[i] = arr[j]
+#
+#                     arr[j] = temp
+#             temp = arr[j]
+#             arr[j] = arr[left]
+#             arr[left] = temp
+#             return j
+#
+#         n = len(nums)
+#         target = n - k
+#         left = 0
+#         right = n - 1
+#         while True:
+#             index = partition(nums, left, right)
+#             if index == target:
+#                 return str(nums[index])
+#             elif index < target:
+#                 left = index + 1
+#             elif index > target:
+#                 right = index - 1
+#
+#
+# a = Solution()
+# arr = ["300","600","700","100"] * 2500
+# # print(arr)
+#
+# print('ans', a.kthLargestNumber(arr, 9900))
