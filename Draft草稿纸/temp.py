@@ -858,30 +858,178 @@
 # #         else:
 # #             return mid[0]
 
-import time
+# import time
+#
+# def isPrime(n):
+#     i = 3
+#     while i * i <= n:
+#         if n % i == 0:
+#             return False
+#         i += 2
+#     return True
+#
+#
+# def check_prime(n):
+#     res = []
+#     i = 3
+#     while i <= n:
+#         if isPrime(i):
+#             res.append(i)
+#         i += 2
+#     return res
+#
+#
+# # start = time.time()
+# #
+# # check_prime(10000000)
+# # end = time.time()
+# # print(4000/60)
+# # print(str(end-start))
+#
+# s= 'h'
+# print(s[1:2])
+from typing import List
 
-def isPrime(n):
-    i = 3
-    while i * i <= n:
-        if n % i == 0:
-            return False
-        i += 2
-    return True
+
+#
+#
+# class Solution:
+#     def countQuadruplets(self, nums: List[int]) -> int:
+#         # nums = sorted(nums)
+#         print(nums)
+#         res = 0
+#         for a in range(len(nums)-3):
+#
+#             for b in range(a+1, len(nums)-2):
+#                 for c in range(b+1, len(nums)-1):
+#                     for d in range(c+1, len(nums)):
+#
+#                         if nums[d] == nums[a] + nums[b] + nums[c]:
+#                             print(d,a,b,c)
+#                             print('nums[d]',nums[d], 'nums[a]', nums[a],'nums[b]', nums[b], 'nums[c]',nums[c])
+#
+#                             res += 1
+#
+#
+#         return res
+#
+# a = Solution()
+# arr =[28,8,49,85,37,90,20,8]
+# print(a.countQuadruplets(arr))
+#
+# print(8+28+49)
+#
+# class Solution:
+#     def numberOfWeakCharacters(self, properties: List[List[int]]) -> int:
+#         properties.sort(key=lambda x: (-x[0], x[1]))
+#
+#         arr_attack = sorted(properties, key=(lambda x: [x[0], x[1]]))
+#         print(arr_attack)
+#         if len(arr_attack) == 2:
+#             if arr_attack[1][1] > arr_attack[0][1] and arr_attack[1][0] > arr_attack[0][0]:
+#                 return 1
+#
+#         res = 0
+#         hash_map = {}
+#
+#         for i in range(len(arr_attack) - 1):
+#             # print('arr_attack[i]', arr_attack[i])
+#             # print(hash_map)
+#             for j in range(i, len(arr_attack)):
+#                 if tuple(arr_attack[j]) in hash_map:
+#                     if hash_map[tuple(arr_attack[j])] != 0:
+#                         continue
+#                 else:
+#                     hash_map[tuple(arr_attack[j])] = 0
+#                 if arr_attack[j][0] > arr_attack[i][0] and arr_attack[j][1] > arr_attack[i][1]:
+#                     # print('arr_attack[j]', arr_attack[j])
+#                     # print('arr_attack[i]', arr_attack[i])
+#                     res += 1
+#                     hash_map[tuple(arr_attack[j])] += 1
+#         # print(hash_map)
+#         return sum(hash_map.values())
+#
+#
+# a = Solution()
+#
+# arr = [[1, 4],
+#        [1, 3],
+#        [2, 1],
+#        [5, 5],
+#        [5, 5],
+#        [5, 6],
+#        [9, 2],
+#        [10, 3]
+#        ]
+#
+# arr = [[7, 7], [1, 2], [9, 7], [7, 3], [3, 10], [9, 8], [8, 10], [4, 3], [1, 5], [1, 5]]
+#
+# print(a.numberOfWeakCharacters(arr))
+#
+#
+# class Solution:
+#     def numberOfWeakCharacters(self, properties: List[List[int]]) -> int:
+#         arr_attack = sorted(properties, key=(lambda x: (-x[0], x[1])))
+#         print(arr_attack)
+#
+#         res = 0
+#         max_defence = float('-inf')
+#         for cur_attack, cur_defence in arr_attack:
+#             print((cur_attack, cur_defence))
+#             print('max_def', max_defence)
+#             if cur_defence < max_defence:
+#                 res += 1
+#             else:
+#                 max_defence = cur_defence
+#         return res
+#
+#
+# arr = [[7, 7], [1, 2], [9, 7], [7, 3], [3, 10], [9, 8], [8, 10], [4, 3], [1, 5], [1, 5]]
+#
+# a = Solution()
+# print('---')
+# print(a.numberOfWeakCharacters(arr))
 
 
-def check_prime(n):
-    res = []
-    i = 3
-    while i <= n:
-        if isPrime(i):
-            res.append(i)
-        i += 2
-    return res
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        n = len(s)
+
+        if n == 1:
+            return 1
+
+        if s[0] == '0':
+            return 0
+
+        dp = [0] * (n + 1)
+
+        dp[0] = 1
+        dp[1] = 0 if s[1] == '0' else 1
+
+        for i in range(2, n + 1):
+            if 0 < int(s[i - 1:i]) <= 9:
+                dp[i] += dp[i - 1]
+            if 10 <= int(s[i - 2:i]) <= 26:
+                dp[i] += dp[i - 2]
+
+        """
+        for i in range(2, n + 1):
+            if 0 < int(s[i - 1:i]) <= 9:
+                dp[i] += dp[i - 2]
+            if 10 <= int(s[i - 2:i]) <= 26:
+                dp[i] += dp[i - 1]
+                
+        这种写法行不通，当处理'2233'的时候
+        
+        包括三种可能性: 
+        2,23,3 // 2,2,3,3 // 22, 3, 3
+        
+        会生成dp = [1,1,2,3,2]
+        
+        所以在处理单位的时候，应该往前切一步 dp[i-1]
+        """
+        return dp[-1]
 
 
-start = time.time()
-
-check_prime(10000000)
-end = time.time()
-print(4000/60)
-print(str(end-start))
+a = Solution()
+print(a.numDecodings('2266'))
