@@ -890,7 +890,6 @@
 # print(s[1:2])
 from typing import List
 
-
 #
 #
 # class Solution:
@@ -990,46 +989,170 @@ from typing import List
 # print('---')
 # print(a.numberOfWeakCharacters(arr))
 
+#
+# class Solution:
+#     def numDecodings(self, s: str) -> int:
+#         n = len(s)
+#
+#         if n == 1:
+#             return 1
+#
+#         if s[0] == '0':
+#             return 0
+#
+#         dp = [0] * (n + 1)
+#
+#         dp[0] = 1
+#         dp[1] = 0 if s[1] == '0' else 1
+#
+#         for i in range(2, n + 1):
+#             if 0 < int(s[i - 1:i]) <= 9:
+#                 dp[i] += dp[i - 1]
+#             if 10 <= int(s[i - 2:i]) <= 26:
+#                 dp[i] += dp[i - 2]
+#
+#         """
+#         for i in range(2, n + 1):
+#             if 0 < int(s[i - 1:i]) <= 9:
+#                 dp[i] += dp[i - 2]
+#             if 10 <= int(s[i - 2:i]) <= 26:
+#                 dp[i] += dp[i - 1]
+#
+#         这种写法行不通，当处理'2233'的时候
+#
+#         包括三种可能性:
+#         2,23,3 // 2,2,3,3 // 22, 3, 3
+#
+#         会生成dp = [1,1,2,3,2]
+#
+#         所以在处理单位的时候，应该往前切一步 dp[i-1]
+#         """
+#         return dp[-1]
+#
+#
+# a = Solution()
+# print(a.numDecodings('2266'))
+#
+# from collections import Counter
+#
+#
+# class Solution:
+#     def interchangeableRectangles(self, rectangles: List[List[int]]) -> int:
+#         ratio_arr = [i[1] / i[0] for i in rectangles]
+#         times = Counter(ratio_arr)
+#
+#         res = 0
+#         for val in times.values():
+#
+#
+#             if val == 1:
+#                 continue
+#             elif val == 2:
+#                 res += 1
+#             else:
+#                 res += val * (val - 1) / 2
+#
+#         return int(res)
+#
+#
+# # sum = [1,2,3,4,5,6,7,8,9]
+# # print((sum[0]+sum[-1]) * len(sum) / 2)
+#
+# a = Solution()
+# arr = [[10, 10],[5,5],[4, 8], [3, 6], [10, 20], [15, 30], [10, 10],[5,5]]
+# a.interchangeableRectangles(arr)
 
-class Solution:
-    def numDecodings(self, s: str) -> int:
-        n = len(s)
+# Expand in both directions of `low` and `high` to find all palindromes
+def expand(s, low, high, palindromes):
+    # run till `s[low.high]` is not a palindrome
+    while low >= 0 and high < len(s) and s[low] == s[high]:
+        # push all palindromes into a set
+        palindromes.add(s[low: high + 1])
 
-        if n == 1:
-            return 1
-
-        if s[0] == '0':
-            return 0
-
-        dp = [0] * (n + 1)
-
-        dp[0] = 1
-        dp[1] = 0 if s[1] == '0' else 1
-
-        for i in range(2, n + 1):
-            if 0 < int(s[i - 1:i]) <= 9:
-                dp[i] += dp[i - 1]
-            if 10 <= int(s[i - 2:i]) <= 26:
-                dp[i] += dp[i - 2]
-
-        """
-        for i in range(2, n + 1):
-            if 0 < int(s[i - 1:i]) <= 9:
-                dp[i] += dp[i - 2]
-            if 10 <= int(s[i - 2:i]) <= 26:
-                dp[i] += dp[i - 1]
-                
-        这种写法行不通，当处理'2233'的时候
-        
-        包括三种可能性: 
-        2,23,3 // 2,2,3,3 // 22, 3, 3
-        
-        会生成dp = [1,1,2,3,2]
-        
-        所以在处理单位的时候，应该往前切一步 dp[i-1]
-        """
-        return dp[-1]
+        # Expand in both directions
+        low = low - 1
+        high = high + 1
 
 
-a = Solution()
-print(a.numDecodings('2266'))
+# Function to find all unique palindromic substrings of a given string
+def findPalindromicSubstrings(s):
+    # create an empty set to store all unique palindromic substrings
+    palindromes = set()
+
+    for i in range(len(s)):
+        # find all odd length palindrome with `s[i]` as a midpoint
+        expand(s, i, i, palindromes)
+
+        # find all even length palindrome with `s[i]` and `s[i+1]`
+        # as its midpoints
+        expand(s, i, i + 1, palindromes)
+
+    # print all unique palindromic substrings
+    print(palindromes, end='')
+
+
+if __name__ == '__main__':
+    s = 'egoogle'
+    findPalindromicSubstrings(s)
+
+"""
+    
+class Solution {
+    List<List<Integer>> list;
+
+    public int maxProduct(String s) {
+        char[] chs = s.toCharArray();
+        list = new ArrayList<>();
+        dfs(0, chs.length, new ArrayList<Integer>());
+        int res = 0;
+        List<List<Integer>> reverseList = new ArrayList<>();
+        for (List<Integer> tt : list) {
+            boolean a = isReverse(chs, tt);
+            if (a) {
+                reverseList.add(tt);
+            }
+        }
+
+        for (int i = 0; i < reverseList.size(); i++) {
+            for (int j = i + 1; j < reverseList.size(); j++) {
+                List<Integer> x = reverseList.get(i);
+                List<Integer> y = reverseList.get(j);
+                boolean flag = true;
+                for (Integer k : x) {
+                    if (y.contains(k)) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    res = Math.max(res, x.size() * y.size());
+                }
+            }
+        }
+        return res;
+    }
+
+    private boolean isReverse(char[] chs, List<Integer> x) {
+        int left = 0;
+        int right = x.size() - 1;
+        while (left <= right) {
+            if (chs[x.get(left++)] != chs[x.get(right--)]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void dfs(int index, int n, List<Integer> set) {
+        if (set.size() >= 1) {
+            list.add(new ArrayList<>(set));
+        }
+        for (int i = index; i < n; i++) {
+            set.add(i);
+            dfs(i + 1, n, set);
+            set.remove(set.size() - 1);
+        }
+    }
+}
+
+"""
