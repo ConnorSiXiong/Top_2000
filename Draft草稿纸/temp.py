@@ -1090,10 +1090,10 @@ def findPalindromicSubstrings(s):
     # print all unique palindromic substrings
     print(palindromes, end='')
 
-
-if __name__ == '__main__':
-    s = 'egoogle'
-    findPalindromicSubstrings(s)
+#
+# if __name__ == '__main__':
+#     s = 'egoogle'
+#     findPalindromicSubstrings(s)
 
 """
     
@@ -1156,3 +1156,35 @@ class Solution {
 }
 
 """
+
+
+class Solution:
+    def reverseOnlyLetters(self, s: str) -> str:
+        dict = {}
+        temp = ""
+
+        n = len(s)
+
+        for i in range(n):
+            if s[i].isalpha():
+                temp += s[i]
+            else:
+                dict[i] = s[i]
+
+        temp = list(temp)
+
+        res = []
+
+        for i in range(n):
+            if i in dict.keys():
+                res.append(dict[i])
+            else:
+                res.append(temp.pop())
+
+        return ''.join(res)
+
+a = Solution()
+print(a.reverseOnlyLetters('a-bC-dEf-ghIj'))
+
+
+
