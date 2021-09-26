@@ -1,5 +1,5 @@
 # import random
-# # from typing import List
+from typing import List
 # #
 # # arr0 = [-2, -1, 1, 2, 3, 4, 5]
 # # arr1 = [1, 1, 1, 10, 10, 10]
@@ -1063,32 +1063,32 @@ from typing import List
 # a.interchangeableRectangles(arr)
 
 # Expand in both directions of `low` and `high` to find all palindromes
-def expand(s, low, high, palindromes):
-    # run till `s[low.high]` is not a palindrome
-    while low >= 0 and high < len(s) and s[low] == s[high]:
-        # push all palindromes into a set
-        palindromes.add(s[low: high + 1])
-
-        # Expand in both directions
-        low = low - 1
-        high = high + 1
-
-
-# Function to find all unique palindromic substrings of a given string
-def findPalindromicSubstrings(s):
-    # create an empty set to store all unique palindromic substrings
-    palindromes = set()
-
-    for i in range(len(s)):
-        # find all odd length palindrome with `s[i]` as a midpoint
-        expand(s, i, i, palindromes)
-
-        # find all even length palindrome with `s[i]` and `s[i+1]`
-        # as its midpoints
-        expand(s, i, i + 1, palindromes)
-
-    # print all unique palindromic substrings
-    print(palindromes, end='')
+# def expand(s, low, high, palindromes):
+#     # run till `s[low.high]` is not a palindrome
+#     while low >= 0 and high < len(s) and s[low] == s[high]:
+#         # push all palindromes into a set
+#         palindromes.add(s[low: high + 1])
+#
+#         # Expand in both directions
+#         low = low - 1
+#         high = high + 1
+#
+#
+# # Function to find all unique palindromic substrings of a given string
+# def findPalindromicSubstrings(s):
+#     # create an empty set to store all unique palindromic substrings
+#     palindromes = set()
+#
+#     for i in range(len(s)):
+#         # find all odd length palindrome with `s[i]` as a midpoint
+#         expand(s, i, i, palindromes)
+#
+#         # find all even length palindrome with `s[i]` and `s[i+1]`
+#         # as its midpoints
+#         expand(s, i, i + 1, palindromes)
+#
+#     # print all unique palindromic substrings
+#     print(palindromes, end='')
 
 #
 # if __name__ == '__main__':
@@ -1158,33 +1158,159 @@ class Solution {
 """
 
 
-class Solution:
-    def reverseOnlyLetters(self, s: str) -> str:
-        dict = {}
-        temp = ""
+#
+# class Solution:
+#     def reverseOnlyLetters(self, s: str) -> str:
+#         dict = {}
+#         temp = ""
+#
+#         n = len(s)
+#
+#         for i in range(n):
+#             if s[i].isalpha():
+#                 temp += s[i]
+#             else:
+#                 dict[i] = s[i]
+#
+#         temp = list(temp)
+#
+#         res = []
+#
+#         for i in range(n):
+#             if i in dict.keys():
+#                 res.append(dict[i])
+#             else:
+#                 res.append(temp.pop())
+#
+#         return ''.join(res)
+#
+# a = Solution()
+# print(a.reverseOnlyLetters('a-bC-dEf-ghIj'))
 
-        n = len(s)
 
-        for i in range(n):
-            if s[i].isalpha():
-                temp += s[i]
-            else:
-                dict[i] = s[i]
+# class Solution:
+#     def finalValueAfterOperations(self, operations: List[str]) -> int:
+#         res = 0
+#         for i in operations:
+#             if '+' in i:
+#                 res += 1
+#             else:
+#                 res -= 1
+#
+#         return res
+# arr = ["--X","X++","X++"]
+# a = Solution()
+# a.finalValueAfterOperations(arr)
+#
+# from collections import deque
+# class Solution:
+#     def sumOfBeauties(self, nums: List[int]) -> int:
+#         res = 0
+#         n = len(nums)
+#
+#         left_max = nums[0]
+#         right_min = min(nums[2:])
+#
+#         temp = deque(sorted(nums[3:][:]))
+#
+#         if left_max < nums[1] < right_min:
+#             print('hey0')
+#             res += 2
+#         elif nums[0] < nums[1] < nums[2]:
+#             print('yop0')
+#             res += 1
+#
+#         for i in range(2, n-1):
+#
+#             if nums[i-1] > left_max:
+#                 left_max = nums[i-1]
+#             right_min = temp.popleft()
+#
+#             print('left', left_max)
+#             print('right', right_min)
+#
+#             if left_max < nums[i] < right_min:
+#
+#                 res += 2
+#             elif nums[i - 1] < nums[i] < nums[i + 1]:
+#
+#                 res += 1
+#         print(res)
+#         return res
+#
+# # arr = [1,3,3,4,5]
+# a = Solution()
+# arr = [1,2,31,4]
+# a.sumOfBeauties(arr)
 
-        temp = list(temp)
+class DetectSquares:
 
-        res = []
-
-        for i in range(n):
-            if i in dict.keys():
-                res.append(dict[i])
-            else:
-                res.append(temp.pop())
-
-        return ''.join(res)
-
-a = Solution()
-print(a.reverseOnlyLetters('a-bC-dEf-ghIj'))
+    def __init__(self):
+        self.add_times = 0
+        self.point_dict = {}
 
 
+    def add(self, point: List[int]) -> None:
+        self.add_times += 1
+        point = tuple(point)
 
+        # update point
+        if point in self.point_dict.keys():
+            self.point_dict[point] += 1
+        else:
+            self.point_dict[point] = 1
+
+    def count(self, point: List[int]) -> int:
+        if self.add_times < 3:
+            return 0
+
+
+
+        points = self.point_dict.keys()
+        points = list(points)
+        n = len(points)
+        res = 0
+        for i in range(n - 2):
+            for j in range(i + 1, n - 1):
+                for k in range(j + 1, n):
+                    findable = self.validSquare(points[i],
+                                                points[j],
+                                                points[k],
+                                                point)
+                    if findable:
+                        res += self.point_dict[points[i]] * self.point_dict[points[j]] * self.point_dict[points[k]]
+
+        return res
+
+    def validSquare(self, p1, p2: List[int], p3: List[int], p4: List[int]) -> bool:
+        def dist(point1, point2):
+            return (point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2
+
+        D = [
+            dist(p1, p2),
+            dist(p1, p3),
+            dist(p1, p4),
+            dist(p2, p3),
+            dist(p2, p4),
+            dist(p3, p4)
+        ]
+        D.sort()
+        return 0 < D[0] == D[1] == D[2] == D[3] and D[4] == D[5]
+
+detectSquares = DetectSquares()
+detectSquares.add([3, 10])
+detectSquares.add([11, 2])
+detectSquares.add([3, 2])
+detectSquares.count([11, 10]);# // return 1. You can choose:
+                               #//   - The first, second, and third points
+detectSquares.count([14, 8]);  #// return 0. The query point cannot form a square with any points in the data structure.
+detectSquares.add([11, 2]);    #// Adding duplicate points is allowed.
+detectSquares.count([11, 10]); ##// return 2. You can choose:
+                               #//   - The first, second, and third points
+                               #//   - The first, third, and fourth points
+
+
+
+f = ["DetectSquares","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add"]
+s = [[],[[229,355]],[[229,491]],[[365,491]],[[365,355]],[[452,647]],[[452,297]],[[802,647]],[[802,297]],[[33,359]],[[494,359]],[[494,820]],[[33,820]],[[8,110]],[[8,940]],[[838,940]],[[838,110]],[[92,887]],[[530,449]],[[92,449]],[[530,887]],[[561,544]],[[829,812]],[[829,544]],[[561,812]],[[412,442]],[[192,442]],[[412,222]],[[192,222]],[[926,177]],[[860,177]],[[926,111]],[[860,111]],[[11,962]],[[11,9]],[[964,9]],[[964,962]],[[169,199]],[[169,981]],[[951,981]],[[951,199]],[[420,822]],[[420,901]],[[341,901]],[[341,822]],[[793,806]],[[98,806]],[[98,111]],[[793,111]],[[898,92]],[[898,899]],[[91,92]],[[91,899]],[[418,214]],[[669,214]],[[669,465]],[[418,465]],[[997,20]],[[997,921]],[[96,921]],[[96,20]],[[291,735]],[[884,735]],[[291,142]],[[884,142]],[[956,450]],[[956,65]],[[571,65]],[[571,450]],[[577,890]],[[661,890]],[[577,806]],[[661,806]],[[695,111]],[[504,302]],[[504,111]],[[695,302]],[[628,772]],[[46,190]],[[628,190]],[[46,772]],[[834,216]],[[60,216]],[[834,990]],[[60,990]],[[126,868]],[[978,868]],[[978,16]],[[126,16]],[[724,44]],[[430,44]],[[724,338]],[[430,338]],[[193,16]],[[992,16]],[[193,815]],[[992,815]],[[925,29]],[[745,209]],[[925,209]],[[745,29]],[[454,225]],[[360,131]],[[360,225]],[[454,131]],[[935,22]],[[935,898]],[[59,22]],[[59,898]],[[793,242]],[[939,388]],[[793,388]],[[939,242]],[[133,268]],[[133,970]],[[835,970]],[[835,268]],[[86,80]],[[86,930]],[[936,930]],[[936,80]],[[30,30]],[[30,984]],[[984,30]],[[984,984]],[[728,469]],[[541,469]],[[541,656]],[[728,656]],[[16,0]],[[998,0]],[[998,982]],[[16,982]],[[272,48]],[[272,505]],[[729,505]],[[729,48]],[[223,737]],[[74,588]],[[74,737]],[[223,588]],[[875,302]],[[952,225]],[[952,302]],[[875,225]],[[924,781]],[[924,103]],[[246,103]],[[246,781]],[[281,294]],[[570,5]],[[281,5]],[[570,294]],[[801,153]]]
+print(len(f))
