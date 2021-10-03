@@ -1157,7 +1157,6 @@ class Solution {
 
 """
 
-
 #
 # class Solution:
 #     def reverseOnlyLetters(self, s: str) -> str:
@@ -1242,75 +1241,215 @@ class Solution {
 # a = Solution()
 # arr = [1,2,31,4]
 # a.sumOfBeauties(arr)
+#
+# class DetectSquares:
+#
+#     def __init__(self):
+#         self.add_times = 0
+#         self.point_dict = {}
+#
+#
+#     def add(self, point: List[int]) -> None:
+#         self.add_times += 1
+#         point = tuple(point)
+#
+#         # update point
+#         if point in self.point_dict.keys():
+#             self.point_dict[point] += 1
+#         else:
+#             self.point_dict[point] = 1
+#
+#     def count(self, point: List[int]) -> int:
+#         if self.add_times < 3:
+#             return 0
+#
+#
+#
+#         points = self.point_dict.keys()
+#         points = list(points)
+#         n = len(points)
+#         res = 0
+#         for i in range(n - 2):
+#             for j in range(i + 1, n - 1):
+#                 for k in range(j + 1, n):
+#                     findable = self.validSquare(points[i],
+#                                                 points[j],
+#                                                 points[k],
+#                                                 point)
+#                     if findable:
+#                         res += self.point_dict[points[i]] * self.point_dict[points[j]] * self.point_dict[points[k]]
+#
+#         return res
+#
+#     def validSquare(self, p1, p2: List[int], p3: List[int], p4: List[int]) -> bool:
+#         def dist(point1, point2):
+#             return (point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2
+#
+#         D = [
+#             dist(p1, p2),
+#             dist(p1, p3),
+#             dist(p1, p4),
+#             dist(p2, p3),
+#             dist(p2, p4),
+#             dist(p3, p4)
+#         ]
+#         D.sort()
+#         return 0 < D[0] == D[1] == D[2] == D[3] and D[4] == D[5]
+#
+# detectSquares = DetectSquares()
+# detectSquares.add([3, 10])
+# detectSquares.add([11, 2])
+# detectSquares.add([3, 2])
+# detectSquares.count([11, 10]);# // return 1. You can choose:
+#                                #//   - The first, second, and third points
+# detectSquares.count([14, 8]);  #// return 0. The query point cannot form a square with any points in the data structure.
+# detectSquares.add([11, 2]);    #// Adding duplicate points is allowed.
+# detectSquares.count([11, 10]); ##// return 2. You can choose:
+#                                #//   - The first, second, and third points
+#                                #//   - The first, third, and fourth points
+#
+#
+#
+# f = ["DetectSquares","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add"]
+# s = [[],[[229,355]],[[229,491]],[[365,491]],[[365,355]],[[452,647]],[[452,297]],[[802,647]],[[802,297]],[[33,359]],[[494,359]],[[494,820]],[[33,820]],[[8,110]],[[8,940]],[[838,940]],[[838,110]],[[92,887]],[[530,449]],[[92,449]],[[530,887]],[[561,544]],[[829,812]],[[829,544]],[[561,812]],[[412,442]],[[192,442]],[[412,222]],[[192,222]],[[926,177]],[[860,177]],[[926,111]],[[860,111]],[[11,962]],[[11,9]],[[964,9]],[[964,962]],[[169,199]],[[169,981]],[[951,981]],[[951,199]],[[420,822]],[[420,901]],[[341,901]],[[341,822]],[[793,806]],[[98,806]],[[98,111]],[[793,111]],[[898,92]],[[898,899]],[[91,92]],[[91,899]],[[418,214]],[[669,214]],[[669,465]],[[418,465]],[[997,20]],[[997,921]],[[96,921]],[[96,20]],[[291,735]],[[884,735]],[[291,142]],[[884,142]],[[956,450]],[[956,65]],[[571,65]],[[571,450]],[[577,890]],[[661,890]],[[577,806]],[[661,806]],[[695,111]],[[504,302]],[[504,111]],[[695,302]],[[628,772]],[[46,190]],[[628,190]],[[46,772]],[[834,216]],[[60,216]],[[834,990]],[[60,990]],[[126,868]],[[978,868]],[[978,16]],[[126,16]],[[724,44]],[[430,44]],[[724,338]],[[430,338]],[[193,16]],[[992,16]],[[193,815]],[[992,815]],[[925,29]],[[745,209]],[[925,209]],[[745,29]],[[454,225]],[[360,131]],[[360,225]],[[454,131]],[[935,22]],[[935,898]],[[59,22]],[[59,898]],[[793,242]],[[939,388]],[[793,388]],[[939,242]],[[133,268]],[[133,970]],[[835,970]],[[835,268]],[[86,80]],[[86,930]],[[936,930]],[[936,80]],[[30,30]],[[30,984]],[[984,30]],[[984,984]],[[728,469]],[[541,469]],[[541,656]],[[728,656]],[[16,0]],[[998,0]],[[998,982]],[[16,982]],[[272,48]],[[272,505]],[[729,505]],[[729,48]],[[223,737]],[[74,588]],[[74,737]],[[223,588]],[[875,302]],[[952,225]],[[952,302]],[[875,225]],[[924,781]],[[924,103]],[[246,103]],[[246,781]],[[281,294]],[[570,5]],[[281,5]],[[570,294]],[[801,153]]]
+# print(len(f))
 
-class DetectSquares:
 
-    def __init__(self):
-        self.add_times = 0
-        self.point_dict = {}
+#
+#
+# arr = [4,1,1,1,1,4]
+#
+#
+# class Solution:
+#     def maximumDifference(self, nums: List[int]) -> int:
+#         n = len(nums)
+#         res = -1
+#
+#         for i in range(n-1):
+#             for j in range(i+1, n):
+#                 if nums[i] < nums[j]:
+#                     if nums[j] - nums[i] > res:
+#                         res = nums[j] - nums[i]
+#
+#         return res
+# a = Solution()
+# print(a.maximumDifference(arr))
 
-
-    def add(self, point: List[int]) -> None:
-        self.add_times += 1
-        point = tuple(point)
-
-        # update point
-        if point in self.point_dict.keys():
-            self.point_dict[point] += 1
-        else:
-            self.point_dict[point] = 1
-
-    def count(self, point: List[int]) -> int:
-        if self.add_times < 3:
-            return 0
-
-
-
-        points = self.point_dict.keys()
-        points = list(points)
-        n = len(points)
-        res = 0
-        for i in range(n - 2):
-            for j in range(i + 1, n - 1):
-                for k in range(j + 1, n):
-                    findable = self.validSquare(points[i],
-                                                points[j],
-                                                points[k],
-                                                point)
-                    if findable:
-                        res += self.point_dict[points[i]] * self.point_dict[points[j]] * self.point_dict[points[k]]
-
-        return res
-
-    def validSquare(self, p1, p2: List[int], p3: List[int], p4: List[int]) -> bool:
-        def dist(point1, point2):
-            return (point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2
-
-        D = [
-            dist(p1, p2),
-            dist(p1, p3),
-            dist(p1, p4),
-            dist(p2, p3),
-            dist(p2, p4),
-            dist(p3, p4)
-        ]
-        D.sort()
-        return 0 < D[0] == D[1] == D[2] == D[3] and D[4] == D[5]
-
-detectSquares = DetectSquares()
-detectSquares.add([3, 10])
-detectSquares.add([11, 2])
-detectSquares.add([3, 2])
-detectSquares.count([11, 10]);# // return 1. You can choose:
-                               #//   - The first, second, and third points
-detectSquares.count([14, 8]);  #// return 0. The query point cannot form a square with any points in the data structure.
-detectSquares.add([11, 2]);    #// Adding duplicate points is allowed.
-detectSquares.count([11, 10]); ##// return 2. You can choose:
-                               #//   - The first, second, and third points
-                               #//   - The first, third, and fourth points
+import numpy as np
 
 
+class Solution:
+    def gridGame(self, grid: List[List[int]]) -> int:
+        rows = 2
+        cols = len(grid[0])
+        dp1 = [[0] * cols for _ in range(rows)]
+        dp1[0][0] = grid[0][0]
+        dp1[1][0] = grid[1][0] + grid[0][0]
 
-f = ["DetectSquares","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add","add","add","count","add"]
-s = [[],[[229,355]],[[229,491]],[[365,491]],[[365,355]],[[452,647]],[[452,297]],[[802,647]],[[802,297]],[[33,359]],[[494,359]],[[494,820]],[[33,820]],[[8,110]],[[8,940]],[[838,940]],[[838,110]],[[92,887]],[[530,449]],[[92,449]],[[530,887]],[[561,544]],[[829,812]],[[829,544]],[[561,812]],[[412,442]],[[192,442]],[[412,222]],[[192,222]],[[926,177]],[[860,177]],[[926,111]],[[860,111]],[[11,962]],[[11,9]],[[964,9]],[[964,962]],[[169,199]],[[169,981]],[[951,981]],[[951,199]],[[420,822]],[[420,901]],[[341,901]],[[341,822]],[[793,806]],[[98,806]],[[98,111]],[[793,111]],[[898,92]],[[898,899]],[[91,92]],[[91,899]],[[418,214]],[[669,214]],[[669,465]],[[418,465]],[[997,20]],[[997,921]],[[96,921]],[[96,20]],[[291,735]],[[884,735]],[[291,142]],[[884,142]],[[956,450]],[[956,65]],[[571,65]],[[571,450]],[[577,890]],[[661,890]],[[577,806]],[[661,806]],[[695,111]],[[504,302]],[[504,111]],[[695,302]],[[628,772]],[[46,190]],[[628,190]],[[46,772]],[[834,216]],[[60,216]],[[834,990]],[[60,990]],[[126,868]],[[978,868]],[[978,16]],[[126,16]],[[724,44]],[[430,44]],[[724,338]],[[430,338]],[[193,16]],[[992,16]],[[193,815]],[[992,815]],[[925,29]],[[745,209]],[[925,209]],[[745,29]],[[454,225]],[[360,131]],[[360,225]],[[454,131]],[[935,22]],[[935,898]],[[59,22]],[[59,898]],[[793,242]],[[939,388]],[[793,388]],[[939,242]],[[133,268]],[[133,970]],[[835,970]],[[835,268]],[[86,80]],[[86,930]],[[936,930]],[[936,80]],[[30,30]],[[30,984]],[[984,30]],[[984,984]],[[728,469]],[[541,469]],[[541,656]],[[728,656]],[[16,0]],[[998,0]],[[998,982]],[[16,982]],[[272,48]],[[272,505]],[[729,505]],[[729,48]],[[223,737]],[[74,588]],[[74,737]],[[223,588]],[[875,302]],[[952,225]],[[952,302]],[[875,225]],[[924,781]],[[924,103]],[[246,103]],[[246,781]],[[281,294]],[[570,5]],[[281,5]],[[570,294]],[[801,153]]]
-print(len(f))
+        for i in range(1, cols):
+            dp1[0][i] = dp1[0][i - 1] + grid[0][i]
+
+        for i in range(1, rows):
+            for j in range(1, cols):
+                dp1[i][j] = max(dp1[i][j - 1], dp1[i - 1][j]) + grid[i][j]
+        print('dp1[-1][-1]', dp1[-1][-1])
+        # remove
+        dp1 = np.array(dp1)
+
+        # remove
+        moves = []
+        times = 0
+        for j in range(cols - 1, -1, -1):
+            times += 1
+            if grid[0][j] > grid[1][j - 1]:
+                moves.append('D')
+                break
+            else:
+                moves.append('R')
+        for i in range(cols - times):
+            moves.append('R')
+
+        moves = moves[::-1]
+
+
+        grid[0][0] = 0
+
+        start_row = 0
+        start_col = 0
+
+        for i in range(len(moves)):
+            if moves[i] == 'D':
+                start_row += 1
+                grid[start_row][start_col] = 0
+            else:
+                start_col += 1
+                grid[start_row][start_col] = 0
+
+        dp1 = [[0] * cols for _ in range(rows)]
+        dp1[0][0] = grid[0][0]
+        dp1[1][0] = grid[1][0] + grid[0][0]
+        dp1 = np.array(dp1)
+
+        for i in range(1, cols):
+            dp1[0][i] = dp1[0][i - 1] + grid[0][i]
+
+        for i in range(1, rows):
+            for j in range(1, cols):
+                dp1[i][j] = max(dp1[i][j - 1], dp1[i - 1][j]) + grid[i][j]
+        print('dp1[-1][-1]', dp1[-1][-1])
+
+        return dp1[-1][-1]
+
+
+grid = [
+    [2, 5, 5, 10],
+    [8, 1, 100, 1]
+]
+
+grid = [
+    [2, 1, 1, 1],
+    [5, 6, 7, 1]
+]
+
+grid = [[1, 3, 1, 15], [1, 3, 3, 1]]
+grid = [[3, 3, 1], [8, 5, 2]]
+
+grid = [[20, 3, 20, 17, 2, 12, 15, 17, 4, 15],
+        [20, 10, 13, 14, 15, 5, 2, 3, 14, 3]]
+
+
+
+print(sum([20, 3, 20, 17, 2, 15, 5, 2, 3, 14, 3]))
+print(sum([12, 15, 17, 4, 15]))
+a = Solution()
+
+a.gridGame(grid)
+#
+# print(sum([3, 20, 17, 2, 12, 15, 17, 4, 15]))
+# print(sum([3, 10, 13, 14, 15, 5, 2, 3, 14]))
+
+
+class Solution:
+    def gridGame(self, grid: List[List[int]]) -> int:
+        L = len(grid[0])
+        s0 = [0 for i in range(L)]
+        s1 = [0 for i in range(L)]
+        i = L - 2
+        while (i >= 0):
+            s0[i] = s0[i + 1] + grid[0][i + 1]
+            i = i - 1
+
+        for i in range(1, L):
+            s1[i] = s1[i - 1] + grid[1][i - 1]
+        print('s0',s0)
+        print('s1',s1)
+        ans = 10 ** 12
+        for i in range(L):
+            ans = min(ans, max(s0[i], s1[i]))
+            print('i',i, 'ans', ans)
+        print(ans)
+        return ans
+#
+# b = Solution()
+#
+# b.gridGame(grid)
