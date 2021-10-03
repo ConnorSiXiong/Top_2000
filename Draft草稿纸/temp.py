@@ -1157,6 +1157,7 @@ class Solution {
 
 """
 
+
 #
 # class Solution:
 #     def reverseOnlyLetters(self, s: str) -> str:
@@ -1335,121 +1336,269 @@ class Solution {
 # a = Solution()
 # print(a.maximumDifference(arr))
 
-import numpy as np
+# import numpy as np
 
-
-class Solution:
-    def gridGame(self, grid: List[List[int]]) -> int:
-        rows = 2
-        cols = len(grid[0])
-        dp1 = [[0] * cols for _ in range(rows)]
-        dp1[0][0] = grid[0][0]
-        dp1[1][0] = grid[1][0] + grid[0][0]
-
-        for i in range(1, cols):
-            dp1[0][i] = dp1[0][i - 1] + grid[0][i]
-
-        for i in range(1, rows):
-            for j in range(1, cols):
-                dp1[i][j] = max(dp1[i][j - 1], dp1[i - 1][j]) + grid[i][j]
-        print('dp1[-1][-1]', dp1[-1][-1])
-        # remove
-        dp1 = np.array(dp1)
-
-        # remove
-        moves = []
-        times = 0
-        for j in range(cols - 1, -1, -1):
-            times += 1
-            if grid[0][j] > grid[1][j - 1]:
-                moves.append('D')
-                break
-            else:
-                moves.append('R')
-        for i in range(cols - times):
-            moves.append('R')
-
-        moves = moves[::-1]
-
-
-        grid[0][0] = 0
-
-        start_row = 0
-        start_col = 0
-
-        for i in range(len(moves)):
-            if moves[i] == 'D':
-                start_row += 1
-                grid[start_row][start_col] = 0
-            else:
-                start_col += 1
-                grid[start_row][start_col] = 0
-
-        dp1 = [[0] * cols for _ in range(rows)]
-        dp1[0][0] = grid[0][0]
-        dp1[1][0] = grid[1][0] + grid[0][0]
-        dp1 = np.array(dp1)
-
-        for i in range(1, cols):
-            dp1[0][i] = dp1[0][i - 1] + grid[0][i]
-
-        for i in range(1, rows):
-            for j in range(1, cols):
-                dp1[i][j] = max(dp1[i][j - 1], dp1[i - 1][j]) + grid[i][j]
-        print('dp1[-1][-1]', dp1[-1][-1])
-
-        return dp1[-1][-1]
-
-
-grid = [
-    [2, 5, 5, 10],
-    [8, 1, 100, 1]
-]
-
-grid = [
-    [2, 1, 1, 1],
-    [5, 6, 7, 1]
-]
-
-grid = [[1, 3, 1, 15], [1, 3, 3, 1]]
-grid = [[3, 3, 1], [8, 5, 2]]
-
-grid = [[20, 3, 20, 17, 2, 12, 15, 17, 4, 15],
-        [20, 10, 13, 14, 15, 5, 2, 3, 14, 3]]
-
-
-
-print(sum([20, 3, 20, 17, 2, 15, 5, 2, 3, 14, 3]))
-print(sum([12, 15, 17, 4, 15]))
-a = Solution()
-
-a.gridGame(grid)
 #
-# print(sum([3, 20, 17, 2, 12, 15, 17, 4, 15]))
-# print(sum([3, 10, 13, 14, 15, 5, 2, 3, 14]))
-
-
-class Solution:
-    def gridGame(self, grid: List[List[int]]) -> int:
-        L = len(grid[0])
-        s0 = [0 for i in range(L)]
-        s1 = [0 for i in range(L)]
-        i = L - 2
-        while (i >= 0):
-            s0[i] = s0[i + 1] + grid[0][i + 1]
-            i = i - 1
-
-        for i in range(1, L):
-            s1[i] = s1[i - 1] + grid[1][i - 1]
-        print('s0',s0)
-        print('s1',s1)
-        ans = 10 ** 12
-        for i in range(L):
-            ans = min(ans, max(s0[i], s1[i]))
-            print('i',i, 'ans', ans)
-        print(ans)
-        return ans
+# class Solution:
+#     def gridGame(self, grid: List[List[int]]) -> int:
+#         rows = 2
+#         cols = len(grid[0])
+#         dp1 = [[0] * cols for _ in range(rows)]
+#         dp1[0][0] = grid[0][0]
+#         dp1[1][0] = grid[1][0] + grid[0][0]
+#
+#         for i in range(1, cols):
+#             dp1[0][i] = dp1[0][i - 1] + grid[0][i]
+#
+#         for i in range(1, rows):
+#             for j in range(1, cols):
+#                 dp1[i][j] = max(dp1[i][j - 1], dp1[i - 1][j]) + grid[i][j]
+#         print('dp1[-1][-1]', dp1[-1][-1])
+#         # remove
+#         dp1 = np.array(dp1)
+#
+#         # remove
+#         moves = []
+#         times = 0
+#         for j in range(cols - 1, -1, -1):
+#             times += 1
+#             if grid[0][j] > grid[1][j - 1]:
+#                 moves.append('D')
+#                 break
+#             else:
+#                 moves.append('R')
+#         for i in range(cols - times):
+#             moves.append('R')
+#
+#         moves = moves[::-1]
+#
+#
+#         grid[0][0] = 0
+#
+#         start_row = 0
+#         start_col = 0
+#
+#         for i in range(len(moves)):
+#             if moves[i] == 'D':
+#                 start_row += 1
+#                 grid[start_row][start_col] = 0
+#             else:
+#                 start_col += 1
+#                 grid[start_row][start_col] = 0
+#
+#         dp1 = [[0] * cols for _ in range(rows)]
+#         dp1[0][0] = grid[0][0]
+#         dp1[1][0] = grid[1][0] + grid[0][0]
+#         dp1 = np.array(dp1)
+#
+#         for i in range(1, cols):
+#             dp1[0][i] = dp1[0][i - 1] + grid[0][i]
+#
+#         for i in range(1, rows):
+#             for j in range(1, cols):
+#                 dp1[i][j] = max(dp1[i][j - 1], dp1[i - 1][j]) + grid[i][j]
+#         print('dp1[-1][-1]', dp1[-1][-1])
+#
+#         return dp1[-1][-1]
+#
+#
+# grid = [
+#     [2, 5, 5, 10],
+#     [8, 1, 100, 1]
+# ]
+#
+# grid = [
+#     [2, 1, 1, 1],
+#     [5, 6, 7, 1]
+# ]
+#
+# grid = [[1, 3, 1, 15], [1, 3, 3, 1]]
+# grid = [[3, 3, 1], [8, 5, 2]]
+#
+# grid = [[20, 3, 20, 17, 2, 12, 15, 17, 4, 15],
+#         [20, 10, 13, 14, 15, 5, 2, 3, 14, 3]]
+#
+#
+#
+# print(sum([20, 3, 20, 17, 2, 15, 5, 2, 3, 14, 3]))
+# print(sum([12, 15, 17, 4, 15]))
+# a = Solution()
+#
+# a.gridGame(grid)
+# #
+# # print(sum([3, 20, 17, 2, 12, 15, 17, 4, 15]))
+# # print(sum([3, 10, 13, 14, 15, 5, 2, 3, 14]))
+#
+#
+# class Solution:
+#     def gridGame(self, grid: List[List[int]]) -> int:
+#         L = len(grid[0])
+#         s0 = [0 for i in range(L)]
+#         s1 = [0 for i in range(L)]
+#         i = L - 2
+#         while (i >= 0):
+#             s0[i] = s0[i + 1] + grid[0][i + 1]
+#             i = i - 1
+#
+#         for i in range(1, L):
+#             s1[i] = s1[i - 1] + grid[1][i - 1]
+#         print('s0',s0)
+#         print('s1',s1)
+#         ans = 10 ** 12
+#         for i in range(L):
+#             ans = min(ans, max(s0[i], s1[i]))
+#             print('i',i, 'ans', ans)
+#         print(ans)
+#         return ans
 #
 # b = Solution()
 #
 # b.gridGame(grid)
+#
+# class Solution:
+#     def minimumMoves(self, s: str) -> int:
+#         n = len(s)
+#         if 'X' not in s:
+#             return 0
+#         if n == 3:
+#             return 1
+#         op = 0
+#         s2 = s
+#
+#         while s.find('XXX') != -1:
+#             op += 1
+#             s = s[:s.find('XXX')] + s[s.find('XXX') + 3:]
+#
+#         while s.find('XOX') != -1:
+#             op += 1
+#             s = s[:s.find('XOX')] + s[s.find('XOX') + 3:]
+#
+#         while s.find('XXO') != -1:
+#             op += 1
+#             s = s[:s.find('XXO')] + s[s.find('XXO') + 3:]
+#         while s.find('OXX') != -1:
+#             op += 1
+#             s = s[:s.find('OXX')] + s[s.find('OXX') + 3:]
+#
+#         op2 = 0
+#         while s2.find('XOX') != -1:
+#             op2 += 1
+#             s2 = s2[:s2.find('XOX')] + s2[s2.find('XOX') + 3:]
+#
+#         while s2.find('XXX') != -1:
+#             op2 += 1
+#             s2 = s2[:s2.find('XXX')] + s2[s2.find('XXX') + 3:]
+#
+#         while s2.find('XXO') != -1:
+#             op2 += 1
+#             s2 = s2[:s2.find('XXO')] + s2[s2.find('XXO') + 3:]
+#
+#         while s2.find('OXX') != -1:
+#             op2 += 1
+#             s2 = s2[:s2.find('OXX')] + s2[s2.find('OXX') + 3:]
+#         if op > op2:
+#             s = s2
+#             op = op2
+#
+#         print(op)
+#         print(s)
+#         n = len(s)
+#
+#         if 'X' not in s:
+#             return op
+#         if n == 3:
+#             return op + 1
+#
+#         res = op
+#         start = 0
+#         while start + 3 < n:
+#             cut = s[start:start + 3]
+#
+#             if 'X' in cut:
+#                 res += 1
+#             start += 3
+#         last = s[start:]
+#
+#         if 'X' in last:
+#             res += 1
+#
+#         s = s[::-1]
+#
+#         res2 = op
+#         start = 0
+#         while start + 3 < n:
+#             cut = s[start:start + 3]
+#
+#             if 'X' in cut:
+#                 res2 += 1
+#             start += 3
+#         last = s[start:]
+#         print('last', last)
+#         if 'X' in last:
+#             res2 += 1
+#
+#         return min(res, res2)
+#
+#
+# # a = Solution()
+# s = 'XOXO"'
+# s = 'OOXXXOX'
+# s = 'OOXXXOXXX'
+# s = "OXOXOOXXXOX"
+# s = 'OXOXOXOXXX'
+# s = 'XXXOXOXOXXXOX'
+# # s = 'OOXOXXOOXOXXOXXXXOXXXOOXXXXOX'
+# s = "OXXOXOXOOXOOXOXOOXOXXOOXOXXOOXOXXOXXXXOXXXOOXXXXOXXOOXXOXOXXOOOXXOXXXXOOOOXXXXXOOOXXXOXXXXXXOOXXOOOOOOOXXOOOXOXXOOOOOXOXXOOXOXOXXXXOXXOXXOOOOXXXOXOOXOOOOXOOOOXXOOXXXXXXXXOXOXOOXXXOOOOXXXOOXOOXXXXXXOOXXXOXOOOOXXOXXXXXOOOXOOOOOOOOOOOOXOXXOOOOOXOXXOXOOOOOXXOOXOOXOOXOXXXOOXOOOOOOXXXOXOXXXXOOOXOOXOOOXXOXOXOXOOOOOXOOXOOXOOXOXOXOXXOXOXOXXXOOOOXXXOOXOOOOOXOXOXXOOXOOOOOOOOOOOXXOOOX"
+#
+# # print('res', a.minimumMoves(s))
+#
+#
+# rolls = [3, 2, 4, 3]
+# mean = 4
+# n = 2
+#
+#
+# # print(sum(rolls + [6, 6]) / (len(rolls) + n))
+#
+#
+# class Solution:
+#     def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:
+#
+#         m = len(rolls)
+#         sum_m = sum(rolls)
+#
+#         total = mean * (m + n)
+#         rest = total - sum_m
+#         print(rest)
+#         print(n)
+#         if n <= rest <= 6 * n:
+#             kk = 999999
+#             anchor = -1
+#             for i in range(1, 7):
+#                 if rest - i * n < kk and rest-i*n >= 0:
+#                     kk = rest - i * n
+#                     anchor = i
+#             if kk == 0:
+#                 return [anchor] * n
+#
+#             return [anchor] * (n - kk) + [anchor+1] * (kk)
+#         return []
+#
+#
+# class Solution2:
+#     def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:
+#         m = len(rolls)
+#         diff = mean * (m + n) - sum(rolls)
+#         if diff > 6 * n or diff < n:
+#             return []
+#         div, mod = divmod(diff, n)
+#         res = sorted([div + 1] * mod + [div] * (n - mod))
+#         print(set(res))
+#         print('hey', sum(res))
+#         return res
+#
+# a = Solution()
+# rolls = [1,1,1,1,1,1,1,1,1,1]
+# mean = 1
+# n = 1
+# print('res', a.missingRolls(rolls, mean, n))
