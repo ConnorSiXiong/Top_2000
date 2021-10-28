@@ -1602,3 +1602,54 @@ class Solution {
 # mean = 1
 # n = 1
 # print('res', a.missingRolls(rolls, mean, n))
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+root = TreeNode(0)
+l = TreeNode(1)
+r = TreeNode(2)
+
+l1 = TreeNode(3)
+r1 = TreeNode(4)
+
+l2 = TreeNode(5)
+r2 = TreeNode(6)
+
+root.left = l
+root.right = r
+l.left = l1
+l.right = r1
+
+# r.left = l2
+# r.right = r2
+
+class Solution:
+    def sumRootToLeaf(self, root) -> int:
+        comb_list = []
+
+        self.dfs(root, [], comb_list)
+        return sum([int(i, 2) for i in comb_list])
+
+    def dfs(self, node, comb, comb_list):
+        if node.left is None and node.right is None:
+            comb.append(str(node.val))
+            comb_list.append(''.join(comb[:]))
+            return
+
+        comb.append(str(node.val))
+        if node.left:
+            self.dfs(node.left, comb, comb_list)
+            comb.pop()
+        if node.right:
+            self.dfs(node.right, comb, comb_list)
+            comb.pop()
+
+a = Solution()
+
+a.sumRootToLeaf(root)
