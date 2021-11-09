@@ -1626,6 +1626,7 @@ root.right = r
 l.left = l1
 l.right = r1
 
+
 # r.left = l2
 # r.right = r2
 
@@ -1650,6 +1651,93 @@ class Solution:
             self.dfs(node.right, comb, comb_list)
             comb.pop()
 
+
 a = Solution()
 
-a.sumRootToLeaf(root)
+# a.sumRootToLeaf(root)
+
+"""
+
+2，5，7
+求27
+
+"""
+
+
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        if amount == 0:
+            return 0
+
+        amount_arr = [float('inf')] * (amount + 1)
+
+        amount_arr[0] = 0
+
+        for i in range(1, amount+1):
+            for j in coins:
+                if i >= j:
+                    amount_arr[i] = min(amount_arr[i - j] + 1, amount_arr[i])
+
+        return -1 if amount_arr[-1] == float('inf') else amount_arr[-1]
+
+
+a = Solution()
+print(a.coinChange([10], 1))
+
+
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        if n == 0 or k == 0:
+            return []
+
+        candidates = [i for i in range(1, n+1)]
+        print(candidates)
+        res = []
+        self.dfs(candidates, 0, [], res, k)
+        print(res)
+        return res
+
+    def dfs(self, candidates, index, comb, res, k):
+        if len(comb) == k:
+            res.append(comb[:])
+            return
+
+        for i in range(index, len(candidates)):
+            comb.append(candidates[i])
+            print('index', index)
+            print('comb1', comb)
+            index += 1
+            self.dfs(candidates, index, comb, res, k)
+            comb.pop()
+            print('comb2', comb)
+            print('--------------')
+
+
+
+a = Solution()
+a.combine(3,2)
+
+
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        def backtrack(first=1, curr=[]):
+            # if the combination is done
+            if len(curr) == k:
+                output.append(curr[:])
+            for i in range(first, n + 1):
+                # add i into the current combination
+                curr.append(i)
+                # use next integers to complete the combination
+                backtrack(i + 1, curr)
+                # backtrack
+                curr.pop()
+
+        output = []
+        backtrack()
+        return output
+
+
+
+
+a = Solution()
+print(a.combine(3,2))
