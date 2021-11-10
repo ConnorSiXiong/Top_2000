@@ -1673,7 +1673,7 @@ class Solution:
 
         amount_arr[0] = 0
 
-        for i in range(1, amount+1):
+        for i in range(1, amount + 1):
             for j in coins:
                 if i >= j:
                     amount_arr[i] = min(amount_arr[i - j] + 1, amount_arr[i])
@@ -1690,7 +1690,7 @@ class Solution:
         if n == 0 or k == 0:
             return []
 
-        candidates = [i for i in range(1, n+1)]
+        candidates = [i for i in range(1, n + 1)]
         print(candidates)
         res = []
         self.dfs(candidates, 0, [], res, k)
@@ -1713,9 +1713,8 @@ class Solution:
             print('--------------')
 
 
-
-a = Solution()
-a.combine(3,2)
+# a = Solution()
+# a.combine(3,2)
 
 
 class Solution:
@@ -1737,7 +1736,51 @@ class Solution:
         return output
 
 
+# a = Solution()
+# print(a.combine(3,2))
+
+
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        max_reach = 1
+
+        # [3, 2, 1, 0, 4]
+
+        for idx, moves in enumerate(nums):
+            if max_reach < idx + 1:
+                return False
+
+            if max_reach >= len(nums):
+                return True
+
+            reach = idx + 1 + moves
+            max_reach = max(reach, max_reach)
+
+        return False
+
+
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        max_reach_idx = 0
+
+        max_index = len(nums) - 1
+        for idx, moves in enumerate(nums):
+            if max_reach_idx < idx:
+                return False
+
+            if max_reach_idx >= max_index:
+                return True
+
+            reach = idx + moves
+            max_reach_idx = max(reach, max_reach_idx)
+
+        return False
+
+#
+# a = Solution()
+# print(a.canJump([3, 2, 1, 0, 4]))
+
 
 
 a = Solution()
-print(a.combine(3,2))
+print(a.uniquePathsWithObstacles([[0,0,0],[0,1,0],[0,0,0]]))
