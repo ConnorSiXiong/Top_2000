@@ -15,7 +15,7 @@ class Solution:
         dp = [0] * (len(s) + 1)
         dp[0] = 1
 
-        for i in range(1, len(s) + 1):
+        for i in range(1, len(s) + 1):  # 要访问字符串s的第1位到第n位；s[i-1:i]就是取出的当前的字符
             if 1 <= int(s[i - 1:i]) <= 9:
                 # 这里dp[i]是当前位的可能组合数
                 # dp[i-1]的意思就是，把当前位的数字取出来s[i-1:i],前面那可能组合方案数就是dp[i-1]
