@@ -1681,8 +1681,8 @@ class Solution:
         return -1 if amount_arr[-1] == float('inf') else amount_arr[-1]
 
 
-a = Solution()
-print(a.coinChange([10], 1))
+# a = Solution()
+# print(a.coinChange([10], 1))
 
 
 class Solution:
@@ -1776,11 +1776,72 @@ class Solution:
 
         return False
 
+
 #
 # a = Solution()
 # print(a.canJump([3, 2, 1, 0, 4]))
 
 
+# a = Solution()
+# print(a.uniquePathsWithObstacles([[0,0,0],[0,1,0],[0,0,0]]))
 
+
+class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        rows = len(grid)
+        cols = len(grid[0])
+
+        dp = [[0] * cols for _ in range(rows)]
+
+        for i in range(rows):
+            for j in range(cols):
+                if i == 0 and j == 0:
+                    dp[i][j] = grid[i][j]
+                elif i == 0:
+                    dp[i][j] = dp[i][j - 1] + grid[i][j]
+                elif j == 0:
+                    dp[i][j] = dp[i - 1][j] + grid[i][j]
+                else:
+                    dp[i][j] = grid[i][j] + min(dp[i][j - 1], dp[i - 1][j])
+        return dp[-1][-1]
+
+
+#
+# a = Solution()
+# grid = [[1, 3, 1], [1, 5, 1], [4, 2, 1]]
+# print(a.minPathSum(grid))
+# # 7
+#
+#
+# grid = [[1, 2, 3], [4, 5, 6]]
+# print(a.minPathSum(grid))
+# # 12
+
+
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        n = len(nums)
+
+        if n == 1:
+            return 1
+
+        dp = [0] * n
+        dp[0] = 1
+
+        for i in range(1, n):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[i], dp[j] + 1)
+                    if dp[i] > j:
+                        break
+                else:
+                    dp[i] = 1
+
+        return max(dp)
+
+
+arr = [10, 9, 2, 5, 3, 7, 9, 18]
+# arr = [1,2,3]
+# 2
 a = Solution()
-print(a.uniquePathsWithObstacles([[0,0,0],[0,1,0],[0,0,0]]))
+print(a.lengthOfLIS(arr))
