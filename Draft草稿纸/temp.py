@@ -1847,34 +1847,57 @@
 # print(a.lengthOfLIS(arr))
 
 
-def lengthOfLongestSubstring( s: str) -> int:
-    if len(s) == 0 or len(s) == 1:
-        return len(s)
+# def lengthOfLongestSubstring( s: str) -> int:
+#     if len(s) == 0 or len(s) == 1:
+#         return len(s)
+#
+#     res = 0
+#
+#     comb = set()
+#
+#     left = 0
+#     right = 1
+#
+#     while right < len(s):
+#         print('right', right)
+#         print('left', left)
+#         print(s[left])
+#         print(comb)
+#         print('------------')
+#         if s[right] in comb:
+#             comb.remove(s[left])
+#             left += 1
+#         else:
+#             comb.add(s[right])
+#             right += 1
+#         res = max(res, right - left)
+#
+#     return res
+#
+#
+# print('final', lengthOfLongestSubstring('abcabcbb'))
+from typing import List
 
-    res = 0
 
-    comb = set()
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return []
 
-    left = 0
-    right = 1
+        res = []
+        visited = [0] * len(nums)
+        self.dfs(nums, visited, [], res)
+        return res
 
-    while right < len(s):
-        print('right', right)
-        print('left', left)
-        print(s[left])
-        print(comb)
-        print('------------')
-        if s[right] in comb:
-            comb.remove(s[left])
-            left += 1
-        else:
-            comb.add(s[right])
-            right += 1
-        res = max(res, right - left)
+    def dfs(self, arr, visited, one_set, res):
+        if len(one_set) == len(arr):
+            res.append(one_set.copy())
+            return
 
-    return res
-
-
-print('final', lengthOfLongestSubstring('abcabcbb'))
-
-
+        for idx, val in enumerate(arr):
+            if visited[idx] == 0:
+                visited[idx] = 1
+                one_set.append(val)
+                self.dfs(arr, visited, one_set, res)
+                one_set.pop()
+                visited[idx] = 0
