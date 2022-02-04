@@ -1876,28 +1876,16 @@
 #
 #
 # print('final', lengthOfLongestSubstring('abcabcbb'))
-from typing import List
-
-
 class Solution:
-    def permute(self, nums: List[int]) -> List[List[int]]:
-        if not nums:
-            return []
+    # @return an integer
+    def reverse(self, x):
+        negFlag = 1
+        if x < 0:
+            negFlag = -1
+            strx = str(x)[1:]
+        else:
+            strx = str(x)
 
-        res = []
-        visited = [0] * len(nums)
-        self.dfs(nums, visited, [], res)
-        return res
+        x = int(strx[::-1])
 
-    def dfs(self, arr, visited, one_set, res):
-        if len(one_set) == len(arr):
-            res.append(one_set.copy())
-            return
-
-        for idx, val in enumerate(arr):
-            if visited[idx] == 0:
-                visited[idx] = 1
-                one_set.append(val)
-                self.dfs(arr, visited, one_set, res)
-                one_set.pop()
-                visited[idx] = 0
+        return 0 if x > pow(2, 31) else x * negFlag
