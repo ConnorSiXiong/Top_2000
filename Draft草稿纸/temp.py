@@ -1876,16 +1876,34 @@
 #
 #
 # print('final', lengthOfLongestSubstring('abcabcbb'))
+# class Solution:
+#     # @return an integer
+#     def reverse(self, x):
+#         negFlag = 1
+#         if x < 0:
+#             negFlag = -1
+#             strx = str(x)[1:]
+#         else:
+#             strx = str(x)
+#
+#         x = int(strx[::-1])
+#
+#         return 0 if x > pow(2, 31) else x * negFlag
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 class Solution:
-    # @return an integer
-    def reverse(self, x):
-        negFlag = 1
-        if x < 0:
-            negFlag = -1
-            strx = str(x)[1:]
-        else:
-            strx = str(x)
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        dummy = temp = ListNode(0)
+        while l1 != None and l2 != None: #1
 
-        x = int(strx[::-1])
-
-        return 0 if x > pow(2, 31) else x * negFlag
+            if l1.val < l2.val: #2
+                temp.next = l1 #3
+                l1 = l1.next #4
+            else:
+                temp.next = l2
+                l2 = l2.next
+            temp = temp.next
+        temp.next = l1 or l2  #5
+        return dummy.next #6
