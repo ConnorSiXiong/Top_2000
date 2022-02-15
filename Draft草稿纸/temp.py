@@ -1889,6 +1889,9 @@
 #         x = int(strx[::-1])
 #
 #         return 0 if x > pow(2, 31) else x * negFlag
+from typing import List
+
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -1907,3 +1910,10 @@ class Solution:
             temp = temp.next
         temp.next = l1 or l2  #5
         return dummy.next #6
+
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        a = 0
+        for i in nums:
+            a ^= i
+        return a
