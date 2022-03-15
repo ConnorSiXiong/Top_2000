@@ -1889,31 +1889,56 @@
 #         x = int(strx[::-1])
 #
 #         return 0 if x > pow(2, 31) else x * negFlag
-from typing import List
+# from typing import List
+#
+#
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+# class Solution:
+#     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+#         dummy = temp = ListNode(0)
+#         while l1 != None and l2 != None: #1
+#
+#             if l1.val < l2.val: #2
+#                 temp.next = l1 #3
+#                 l1 = l1.next #4
+#             else:
+#                 temp.next = l2
+#                 l2 = l2.next
+#             temp = temp.next
+#         temp.next = l1 or l2  #5
+#         return dummy.next #6
+#
+# class Solution:
+#     def singleNumber(self, nums: List[int]) -> int:
+#         a = 0
+#         for i in nums:
+#             a ^= i
+#         return a
 
-
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
 class Solution:
-    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
-        dummy = temp = ListNode(0)
-        while l1 != None and l2 != None: #1
+    def permutation(self, arr):
+        if not arr:
+            return []
+        res = []
+        self.dfs(arr, res, [], [])
+        print(res)
 
-            if l1.val < l2.val: #2
-                temp.next = l1 #3
-                l1 = l1.next #4
-            else:
-                temp.next = l2
-                l2 = l2.next
-            temp = temp.next
-        temp.next = l1 or l2  #5
-        return dummy.next #6
+    def dfs(self, arr, res, cur, visited):
+        if len(cur) == len(arr):
+            res.append(cur[:])
+            return
+        else:
+            for idx, val in enumerate(arr):
+                if idx not in visited:
+                    cur.append(val)
+                    visited.append(idx)
+                    self.dfs(arr, res, cur, visited)
+                    cur.pop()
+                    visited.pop()
 
-class Solution:
-    def singleNumber(self, nums: List[int]) -> int:
-        a = 0
-        for i in nums:
-            a ^= i
-        return a
+
+a = Solution()
+a.permutation([1,2])
